@@ -29,6 +29,9 @@ const map = L.map('map').setView([31.5, 34.47], 12); // Center on Gaza Strip
         ext: 'png'
     });
 
+//Add scalebar to map
+L.control.scale({metric: true, imperial: false, maxWidth: 100}).addTo(map);
+
 // Control baseLayers
 var baseLayers = {
     "Google Sat": googleSat,
@@ -44,13 +47,10 @@ var controlLayers = L.control.layers(baseLayers, {}, {
 
 
     //RADIO AND ARTICLE
-
     fetch('layer.json')
     .then(response => response.json())
     .then(data => {
-        // Object to hold overlay layers
         var overLayers = {}; 
-        // Track the currently selected layer
         var currentLayer = null; 
 
         async function getWFSgeojson(wfsURL) {
@@ -63,81 +63,137 @@ var controlLayers = L.control.layers(baseLayers, {}, {
         }
 
         function createLayer(layerData) {
-            const { name, wfsURL, color, className, weight, minWidth, maxWidth, title, article } = layerData;
+            const { name, wfsURL, color, className, weight, minWidth, width, maxWidth, title, article, type } = layerData;
 
             return getWFSgeojson(wfsURL).then(geojsonData => {
                 if (geojsonData) {
-                    var wfsPolylayer = L.geoJSON(geojsonData, {
-                        style: function () {
-                            return {
-                                color: color,
-                                weight: weight
-                            };
-                        },
-                        onEachFeature: function (feature, layer) {
-                            layer.bindPopup(feature.properties.name, {
-                                className: className,
-                                minWidth: minWidth,
-                                maxWidth: maxWidth
+                    let layer;
+                    switch (type) {
+                        case 'polygon':
+                           
+                           layer = L.geoJSON(geojsonData, {
+                                style: function () {
+                                    return {
+                                        color: color,
+                                        weight: weight
+                                    };
+                                },
+                               onEachFeature: function (feature, layer) {
+                                    layer.bindPopup(feature.properties.name, {
+                                     /*    className: className,
+                                        minWidth: minWidth,
+                                        maxWidth: maxWidth */
+                                    });
+                                }
                             });
-                        }
-                    });
+                            console.log(type)
+                            break;
+                        case 'line':
+                            layer = L.geoJSON(geojsonData, {
+                                style: function () {
+                                    return {
+                                        color: color,
+                                        weight: weight,
+                                      //  dashArray: '5, 5' // example for dashed lines
+                                    };
+                                },
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup(feature.properties.name, {
+                                       // className: className,
+                                       // minWidth: minWidth,
+                                       // maxWidth: maxWidth
+                                       width: width
+                                    });
+                                }
+                            });
+                            console.log(type)
+                            break;
+                        case 'point':
+                            layer = L.geoJSON(geojsonData, {
+                                pointToLayer: function (feature, latlng) {
+                                    return L.circleMarker(latlng, {
+                                        radius: 8, // example radius for points
+                                        fillColor: color,
+                                        color: '#000',
+                                        weight: weight,
+                                        fillOpacity: 0.8
+                                    });
+                                },
+                                onEachFeature: function (feature, layer) {
+                                    layer.bindPopup(feature.properties.name, {
+                                       // className: className,
+                                      //  minWidth: minWidth,
+                                       // maxWidth: maxWidth
+                                    });
+                                }
+                            });
+                            console.log(type)
+                            break;
+                        default:
+                            console.warn('Unknown layer type:', type);
+                            return; // Skip if the type is not recognized
+                    }
 
-                    // Store the layer in the overLayers object & Store title and article with the layer 
-                    overLayers[name] = { layer: wfsPolylayer, title, article }; 
+                    // Store the layer in the overLayers object
+                    overLayers[name] = { layer, title, article }; 
 
                     // Create a radio button for the custom control
-                    createLayerRadioButton(name, wfsPolylayer, title, article);
+                    createLayerRadioButton(name, layer, title, article);
                 }
             });
         }
 
-        // Create radio buttons for each layer
-        function createLayerRadioButton(name, layer, title, article) {
-            const radioContainer = document.createElement('div');
-            radioContainer.className = 'flex items-center mb-2';
+// Create radio buttons for each layer
+function createLayerRadioButton(name, layer, title, article) {
+    const radioContainer = document.createElement('div');
+    radioContainer.className = 'flex items-center mb-2';
 
-            const radio = document.createElement('input');
-            radio.type = 'radio';
-            radio.name = 'layer'; 
-            radio.id = name;
-            radio.className = 'mr-2';
-            radio.onclick = function () {
-                if (currentLayer) {
-                    // Remove the currently selected layer
-                    map.removeLayer(currentLayer); 
-                }
-                // Add the new layer => The map
-                map.addLayer(layer); 
-                currentLayer = layer; 
-
-                // The article content 
-                document.getElementById('title').innerHTML = title; 
-                document.getElementById('article').innerHTML = article; 
-            };
-
-            const label = document.createElement('label');
-            label.htmlFor = name;
-            label.innerText = name;
-            label.className = 'cursor-pointer';
-
-            // Append radio button & label to container
-            radioContainer.appendChild(radio);
-            radioContainer.appendChild(label);
-
-            document.getElementById('layer-list').appendChild(radioContainer);
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'layer'; 
+    radio.id = name;
+    radio.className = 'mr-2';
+    radio.onclick = function () {
+        if (currentLayer) {
+            // Remove the currently selected layer
+            map.removeLayer(currentLayer); 
         }
+        // Add the new layer to the map
+        map.addLayer(layer); 
+        currentLayer = layer; 
 
-        // Promises for each layer
-        var layerPromises = data.map(layerData => createLayer(layerData));
+        // Update title and article content
+        document.getElementById('title').innerHTML = title; 
+        document.getElementById('article').innerHTML = article; 
+        // Fit the map bounds to the new layer
+        const layerBounds = layer.getBounds();
+        if (layerBounds.isValid()) {
+            map.fitBounds(layerBounds);
+        }
+    };
 
-            // Automatically click the first radio button
-            Promise.all(layerPromises).then(() => {
-            //console.log(overLayers); 
+    const label = document.createElement('label');
+    label.htmlFor = name;
+    label.innerText = name;
+    label.className = 'cursor-pointer';
 
-            const firstRadio = document.querySelector('input[name="layer"]');
-            if (firstRadio) {
-                firstRadio.click(); 
-            }
-        });
+    // Append radio button & label to container
+    radioContainer.appendChild(radio);
+    radioContainer.appendChild(label);
+
+    // Append to #radio-Layers
+    document.getElementById('radio-Layers').appendChild(radioContainer);
+}
+
+// Promises for each layer
+var layerPromises = data.map(layerData => createLayer(layerData));
+
+// Automatically click the first radio button
+Promise.all(layerPromises).then(() => {
+    const firstRadio = document.querySelector('input[name="layer"]');
+    if (firstRadio) {
+        firstRadio.click(); 
+    }
+});
+
     });
