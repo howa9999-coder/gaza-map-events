@@ -1,67 +1,133 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<!--tailwindcss-->
-<script src="https://cdn.tailwindcss.com"></script>
-<!--fonts-->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<!--Icons-->
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-<!--leaflet-->
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="float.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        .customPop {
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
 </head>
-<body class=" font-[Poppins]  " >
-<!--Navigation bar
-        text-4xl    font-bold text-blue-600 tracking-wide
--->
-<header class="bg-white shadow-lg fixed top-0 left-0  w-full z-50">
-    <nav class="flex justify-between items-center w-[92%] mx-auto">
+<body class="font-[Poppins] bg-gray-200">
 
-        <div>
-            <h1 class="text-4xl md:text-5xl  my-5  ">
-                Gaza Events
-            </h1>
+    <!-- Navigation bar -->
+    <header class="bg-white shadow-lg fixed top-0 left-0 w-full ">
+        <nav class="flex justify-between items-center w-[92%] mx-auto py-4">
+            <div>
+                <h1 class="text-4xl md:text-5xl text-blue-600 font-bold">Gaza Events</h1>
+            </div>
+            <div class="nav-links transition-all duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-1000%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col mx-auto md:items-center md:gap-[4vw] gap-8">
+                    <li><a class="hover:text-gray-500" href="#home">Home</a></li>
+                    <li><a class="hover:text-gray-500" href="#articles">Articles</a></li>
+                    <li><a class="hover:text-gray-500" href="#associations">Associations</a></li>
+                    <li><a class="hover:text-gray-500" href="#">Contact</a></li>
+                    <li><button id="fullscreenButton">Full screen</button></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <ion-icon name="menu" onclick="onToggleMenu(this)" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 flex flex-col items-center"> 
+        <div class="container mx-auto px-4 relative"> 
+            <!-- Map Section -->
+            <div id="map" class="w-full h-[500px] md:h-[700px] mb-6 shadow-lg rounded-lg overflow-hidden"></div> 
+            <!--draggbale list-->
+            <div class="navigation absolute top-0 right-0 bg-gray-100 rounded-lg shadow-md">
+                <div class="toggle"></div>
+                <div id="radio-Layers" class="pl-3 pt-2"></div>
+            </div>
+         
+            <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+                <h1 id="title" class="text-3xl font-bold text-gray-800 mb-4">Article Title</h1> 
+                <div id="article" class="text-gray-700 leading-relaxed space-y-4">
+                    <p>article content .</p>
+                </div> 
+                <h6 id="author"></h6>
+                <h6 id="date"></h6>
+            </div>
         </div>
-        <div class="nav-links transition-all duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-1000%] md:w-auto w-full flex items-center px-5">
-            <ul class="flex md:flex-row flex-col mx-auto md:items-center md:gap-[4vw] gap-8">
-                <li>
-                    <a class="hover:text-gray-500" href="#home">Home</a>
-                </li>
-                <li>
-                    <a class="hover:text-gray-500" href="#articles">Articles</a>
-                </li>
-                <li>
-                    <a class="hover:text-gray-500" href="#associations">Associations</a>
-                </li>
-                <li>
-                    <a class="hover:text-gray-500" href="#">Contact</a>
-                </li>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Gaza Events. All rights reserved.</p>
+            <ul class="flex justify-center space-x-4 mt-2">
+                <li><a href="#" class="hover:text-gray-400">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-gray-400">Terms of Service</a></li>
+                <li><a href="#" class="hover:text-gray-400">Contact Us</a></li>
             </ul>
         </div>
-        <div class="flex items-center gap-6">
-            <ion-icon name="menu" onclick="onToggleMenu(this)" class="text-3xl cursor-pointer md:hidden"></ion-icon>
-        </div>
-    </nav>
-</header>
+    </footer>
 
+    <script src="map.js"></script>
+    <script>
+        const navigation = document.querySelector('.navigation');
 
-<div id="map" style="height: calc(100vh - 300px); top: 80px;"  ></div>
-<div id="custom-layer-control" style="margin-top: 100px" class="bg-white p-4 shadow-lg">
-    <h3 class="font-bold text-lg mb-2">Layer Control</h3>
-    <div id="layer-list"></div>
-</div>
-<div id="article-content" class="mt-8">
-    <h1 id="title" class="mb-2"></h1>
-    <p id="article"></p>
-</div>
+        document.querySelector('.toggle').ondblclick = function() {
+            this.classList.toggle('active');
+            navigation.classList.toggle('active');
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script>
+      $(function() {
+    let isFixed = false; // Track if the navigation is fixed
 
-<script src="map.js"></script>
+    $(".navigation").draggable({
+        stop: function(event, ui) {
+            const position = $(this).position();
+            if (position.top < 0 || position.left < 0) {
+                $(this).css({ top: '10%', right: '20px' });
+            }
+            // Update isFixed status based on the position of the navigation
+            isFixed = ui.position.top <= 10; // Set isFixed if dragged near the top
+        }
+    });
+
+    $(window).scroll(function() {
+        const scrollTop = $(this).scrollTop();
+        const navPosition = $(".navigation").position();
+
+        // Check if the navigation should become fixed
+        if (scrollTop > navPosition.top && !isFixed) {
+            isFixed = true;
+            $(".navigation").css({
+                position: 'fixed',
+                top: '10px',
+                left: navPosition.left
+            });
+        }
+
+        // Check if the navigation should go back to its original position
+        if (scrollTop < navPosition.top && isFixed) {
+            isFixed = false;
+            $(".navigation").css({
+                position: 'absolute',
+                top: navPosition.top,
+                left: navPosition.left
+            });
+        }
+    });
+});
+
+    </script>
 </body>
 </html>
