@@ -1,7 +1,7 @@
 [
     {
         "name": "Education_facilities",
-        "type":"polygone",
+        "type":"polygon",
         "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
         "className": "customPop",
         "color": "red",
@@ -11,12 +11,14 @@
         "width": "500px",
         "popUp": ["name", "name_en","name_ar", "amenity"],
         "title": "Education Facilities in Gaza",
+        "author": "xxxMLxxxxx",
+        "date": "to day",
         "article": "Education in the Gaza Strip is a critical concern, especially given the ongoing conflict and humanitarian issues. The education system is overseen by the Palestinian Authority and the United Nations Relief and Works Agency (UNRWA), which provides education for Palestinian refugees.\n\nThe Gaza Strip has over 300 schools operated by UNRWA, offering education to more than 250,000 students. These schools provide a basic curriculum, but they often face challenges such as overcrowded classrooms, limited resources, and damage from conflict.\n\nDespite these obstacles, the literacy rate in Gaza is relatively high, around 97%, reflecting a strong cultural emphasis on education. However, the ongoing political situation and economic hardships threaten the stability and quality of educational facilities. Efforts by international organizations aim to improve access to education, but the need for sustained support and infrastructure development remains crucial."
 
         },
     {
         "name": "Gaza_strip",
-        "type":"polygone",
+        "type":"polygon",
         "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Agazastrip_municipalboundaries&maxFeatures=50&outputFormat=application%2Fjson",
         "className": "customPop",
         "color": "orange",
@@ -26,9 +28,47 @@
         "width": "500px",
         "popUp": ["name", "shape_leng", "shape_area"],
         "title": "The Gaza Strip",
+        "author": "xxxxxxxx",
+         "date": "to day",
         "article": "The Gaza Strip is a small, densely populated territory located along the eastern coast of the Mediterranean Sea. It borders Egypt to the southwest and Israel to the north and east. Measuring about 365 square kilometers, it is home to over two million people, making it one of the most densely populated areas in the world.\n\nHistorically, the Gaza Strip has been a focal point of conflict between Israelis and Palestinians. Following the 1948 Arab-Israeli War, it came under Egyptian control until 1967, when Israel occupied it during the Six-Day War. Since 2005, Israel has disengaged from the territory, but it maintains strict control over its borders, significantly affecting the region's economy and daily life.\n\nThe Strip faces numerous challenges, including high unemployment rates, limited access to clean water, and inadequate healthcare facilities. Political tensions, frequent military conflicts, and restrictions on movement contribute to the humanitarian crisis, leading to calls for international assistance and resolution efforts."
 
-        }
+        },
+        
+            {
+                "name": "testLine",
+                "type":"line",
+                "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestline&maxFeatures=50&outputFormat=application%2Fjson",
+                "className": "customPop",
+                "color": "black",
+                "weight": "2",
+                "minWidth": "",
+                "maxWidth": "",
+                "width": "800px",
+                "popUp": ["name", "shape_leng", "shape_area"],
+                "title": "Test Line ",
+                "article": "The Gaza Strip is a small, densely populated territory located along the eastern coast of the Mediterranean Sea. It borders Egypt to the southwest and Israel to the north and east. Measuring about 365 square kilometers, it is home to over two million people, making it one of the most densely populated areas in the world.\n\nHistorically, the Gaza Strip has been a focal point of conflict between Israelis and Palestinians. Following the 1948 Arab-Israeli War, it came under Egyptian control until 1967, when Israel occupied it during the Six-Day War. Since 2005, Israel has disengaged from the territory, but it maintains strict control over its borders, significantly affecting the region's economy and daily life.\n\nThe Strip faces numerous challenges, including high unemployment rates, limited access to clean water, and inadequate healthcare facilities. Political tensions, frequent military conflicts, and restrictions on movement contribute to the humanitarian crisis, leading to calls for international assistance and resolution efforts.",
+                "author": "xxxxxxxx",
+                "date": "to day"
+        
+                },
+                {
+                    "name": "testPoints",
+                    "type":"point",
+                    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
+                    "className": "customPop",
+                    "color": "orange",
+                    "weight": "2",
+                    "minWidth": "",
+                    "maxWidth": "",
+                    "width": "500px",
+                    "popUp": ["name", "shape_leng", "shape_area"],
+                    "title": "Tests points",
+                    "article": "The Gaza Strip is a small, densely populated territory located along the eastern coast of the Mediterranean Sea. It borders Egypt to the southwest and Israel to the north and east. Measuring about 365 square kilometers, it is home to over two million people, making it one of the most densely populated areas in the world.\n\nHistorically, the Gaza Strip has been a focal point of conflict between Israelis and Palestinians. Following the 1948 Arab-Israeli War, it came under Egyptian control until 1967, when Israel occupied it during the Six-Day War. Since 2005, Israel has disengaged from the territory, but it maintains strict control over its borders, significantly affecting the region's economy and daily life.\n\nThe Strip faces numerous challenges, including high unemployment rates, limited access to clean water, and inadequate healthcare facilities. Political tensions, frequent military conflicts, and restrictions on movement contribute to the humanitarian crisis, leading to calls for international assistance and resolution efforts.",
+                    "author": "xxxxxxxx",
+                    "date": "to day"
+            
+                    }
+          
        
 ]
 
