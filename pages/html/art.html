@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/float.css">
+    <link rel="stylesheet" href="../css/article.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        .customPop {
+            background-color: #fff;
+            color: #333;
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body class="font-[Poppins] bg-gray-200">
+
+    <!-- Navigation bar -->
+
+    <header class="bg-white shadow-lg fixed top-0 left-0 w-full ">
+        <nav class="flex justify-between items-center w-[92%] mx-auto py-4">
+            <div>
+                <h1 class="text-4xl md:text-5xl text-blue-600 font-bold">Gaza Events</h1>
+            </div>
+            <div class="nav-links transition-all duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-1000%] md:w-auto w-full flex items-center px-5">
+                <ul class="flex md:flex-row flex-col mx-auto md:items-center md:gap-[4vw] gap-8">
+                    <li><a class="hover:text-gray-500" href="index.html">Home</a></li>
+                    <li><a class="hover:text-gray-500" href="article.html">Articles</a></li>
+                    <li><a class="hover:text-gray-500" href="association.html">Associations</a></li>
+                    <li><a class="hover:text-gray-500" href="#">Contact</a></li>
+                    <li><button id="fullscreenButton">Full screen</button></li>
+                </ul>
+            </div>
+            <div class="flex items-center gap-6">
+                <ion-icon name="menu" onclick="onToggleMenu(this)" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+            </div>
+        </nav>
+    </header>
+    <!--Urgent news-->
+    <div class="fixed top-20  left-0 right-0 bg-red-600 text-white py-2 overflow-hidden z-20 ">
+        <div class="marquee">
+            <span class="px-4"> Emergency News: Major updates on the situation in Gaza... </span>
+            <span class="px-4"> Emergency News: Relief efforts are ongoing... </span>
+            <span class="px-4"> Emergency News: Safety tips for residents... </span>
+        </div>
+        
+    </div>
+    <!--Main-->
+
+    <main class="pt-24 flex flex-col mt-10 items-center"> 
+        <div class="container mx-auto px-4 relative"> 
+            <!-- Map Section -->
+            <div id="map" class="w-ful h-[450px] md:h-[400px] mb-6 shadow-lg rounded-lg overflow-hidden z-10 "></div> 
+            <!--draggbale list-->
+            <div class="navigation absolute top-0 right-0 bg-gray-100 rounded-lg shadow-md">
+                <div class="toggle"></div>
+                <div id="radio-Layers" class="pl-3 pt-2"></div>
+            </div>
+            <!--Article content-->
+            <div class="bg-white shadow-md  p-6 mb-8">
+                <h1 id="title" class="text-3xl font-bold text-gray-800 mb-4">Article Title</h1> 
+                <div id="article" class="text-gray-700 leading-relaxed space-y-4">
+                    <p>article content .</p>
+                </div> 
+                <h6 id="author"></h6>
+                <h6 id="date"></h6>
+                <div class="mt-6 flex space-x-2">
+                    <a href="/path/to/shapefile.zip" download class="flex items-center bg-green-500 text-white font-semibold py-2 px-4 rounded hover:bg-green-300">
+                        <ion-icon name="download-outline" class="mr-2"></ion-icon>
+                        Download Shapefile
+                    </a>
+                    <a id="facebookShare" class="flex items-center  text-black font-semibold py-2 px-4 rounded hover:bg-gray-50" target="_blank">
+                        <ion-icon name="logo-facebook" class="mr-2"></ion-icon></a>
+                    <a id="twitterShare" class="flex items-center  text-black font-semibold py-2 px-4 rounded hover:bg-gray-50" target="_blank">
+                        <ion-icon name="logo-twitter" class="mr-2"></ion-icon></a>
+                    <a id="linkedinShare" class="flex items-center  text-black font-semibold py-2 px-4 rounded hover:bg-gray-50" target="_blank">
+                        <ion-icon name="logo-linkedin" class="mr-2"></ion-icon></a>
+                </div>
+            </div>
+
+            <!--Suggested articles-->
+            <div class="container mx-auto my-4 p-6" >
+                <h2 class="text-2xl font-bold my-2 text-center">Suggested articles</h2>
+
+                <div id="suggestion-list" class="my-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="card"></div>
+            </div>
+            <!--Associations-->
+            <div class="container mx-auto my-4 p-6" id="associationsSlide">
+                <h2 class="text-2xl font-bold my-2 text-center">Associations</h2>
+                <div class="relative">
+                    <div class="overflow-hidden">
+                        <div class="flex transition-transform duration-300 ease-in-out" id="carousel"> <!--Cards--></div>
+                    </div>
+                    <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
+                        &#10094;
+                    </button>
+                    <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
+                        &#10095;
+                    </button>
+                </div>
+                <hr>
+            
+            </div>
+            
+            <!--onTwitter & comment-->
+            <div class="flex flex-col md:flex-row">
+                
+            <!-- Comment Section -->
+                <div class="bg-white w-full md:w-3/4 p-4">
+        <div class="mt-6">
+            <h2 class="text-xl font-semibold">Comments</h2>
+            <div class="mt-4">
+                <div class="border-b pb-4 mb-4 flex items-start">
+                    <img src="https://via.placeholder.com/40" alt="User1" class="rounded-full mr-4">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-bold">User1</p>
+                                <p>This is a comment.</p>
+                            </div>
+                            <div class="flex items-center">
+                                <button class="mr-2 text-blue-500">👍</button>
+                                <span class="mr-2">10</span>
+                                <button class="mr-2 text-red-500">👎</button>
+                                <span class="mr-2">2</span>
+                                <button class="text-gray-500">Reply</button>
+                            </div>
+                        </div>
+                        <!-- Replies -->
+                        <div class="ml-6 mt-2 border-l pl-4">
+                            <div class="flex items-start">
+                                <img src="https://via.placeholder.com/40" alt="User3" class="rounded-full mr-4">
+                                <div class="flex-1">
+                                    <div class="flex justify-between">
+                                        <div>
+                                            <p class="font-bold">User3</p>
+                                            <p>This is a reply to User1's comment.</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <button class="mr-2 text-blue-500">👍</button>
+                                            <span class="mr-2">5</span>
+                                            <button class="mr-2 text-red-500">👎</button>
+                                            <span class="mr-2">1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-b pb-4 mb-4 flex items-start">
+                    <img src="https://via.placeholder.com/40" alt="User2" class="rounded-full mr-4">
+                    <div class="flex-1">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="font-bold">User2</p>
+                                <p>This is another comment.</p>
+                            </div>
+                            <div class="flex items-center">
+                                <button class="mr-2 text-blue-500">👍</button>
+                                <span class="mr-2">4</span>
+                                <button class="mr-2 text-red-500">👎</button>
+                                <span class="mr-2">0</span>
+                                <button class="text-gray-500">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add New Comment -->
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold">Add a Comment</h3>
+                <textarea class="w-full border p-2 mt-2" rows="3" placeholder="Write your comment..."></textarea>
+                <button class="bg-blue-500 text-white px-4 py-2 mt-2">Submit</button>
+            </div>
+        </div>
+    </div>
+    <!--on twitter-->
+        <div class="bg-gray text-white w-full md:w-1/4 p-4">
+            <a class="twitter-timeline" href="https://twitter.com/YourUsername?ref_src=twsrc%5Etfw">Tweets by YourUsername</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+
+                </div>
+            </div>
+        </div>
+        
+
+    </main>
+    
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-4 py-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Gaza Events. All rights reserved.</p>
+            <ul class="flex justify-center space-x-4 mt-2">
+                <li><a href="#" class="hover:text-gray-400">Privacy Policy</a></li>
+                <li><a href="#" class="hover:text-gray-400">Terms of Service</a></li>
+                <li><a href="#" class="hover:text-gray-400">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="../js/art.js"></script>
+    <script src="../js/menu.js"></script>
+    <script src="../JS/AssociationsSlide.js"></script>
+
+    <script>
+        const navigation = document.querySelector('.navigation');
+
+        document.querySelector('.toggle').ondblclick = function() {
+            this.classList.toggle('active');
+            navigation.classList.toggle('active');
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+    <script>
+      $(function() {
+    let isFixed = false; // Track if the navigation is fixed
+
+    $(".navigation").draggable({
+        stop: function(event, ui) {
+            const position = $(this).position();
+            if (position.top < 0 || position.left < 0) {
+                $(this).css({ top: '10%', right: '20px' });
+            }
+            // Update isFixed status based on the position of the navigation
+            isFixed = ui.position.top <= 10; // Set isFixed if dragged near the top
+        }
+    });
+
+    $(window).scroll(function() {
+        const scrollTop = $(this).scrollTop();
+        const navPosition = $(".navigation").position();
+
+        // Check if the navigation should become fixed
+        if (scrollTop > navPosition.top && !isFixed) {
+            isFixed = true;
+            $(".navigation").css({
+                position: 'fixed',
+                top: '10px',
+                left: navPosition.left
+            });
+        }
+
+        // Check if the navigation should go back to its original position
+        if (scrollTop < navPosition.top && isFixed) {
+            isFixed = false;
+            $(".navigation").css({
+                position: 'absolute',
+                top: navPosition.top,
+                left: navPosition.left
+            });
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
