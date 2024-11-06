@@ -9,6 +9,10 @@ function onToggleMenu(e) {
     navLinks.classList.toggle("top-[95%]");
 }
 
+document.getElementById("onToggleMenu").addEventListener("click", function () {
+    return onToggleMenu(this);
+});
+
 //About Us
 function aboutUs() {
     const container = document.querySelector("#home-about");
@@ -35,6 +39,7 @@ function aboutUs() {
         document.querySelector("#about-btn").innerHTML = "About Gaza Events";
     }
 }
+document.getElementById("about-btn").addEventListener("click", aboutUs);
 
 // Leaflet Map
 const map = L.map("map").setView([31.5, 34.47], 12); // Center on Gaza Strip
@@ -72,9 +77,13 @@ function nextSlide() {
     updateCarousel();
 }
 
+document.getElementById("nextSlide").addEventListener("click", nextSlide);
+
 function prevSlide() {
     const carousel = document.getElementById("carousel");
     const totalItems = carousel.children.length;
     currentIndex = (currentIndex - 1 + totalItems) % totalItems;
     updateCarousel();
 }
+
+document.getElementById("prevSlide").addEventListener("click", prevSlide);

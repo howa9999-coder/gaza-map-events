@@ -67,7 +67,7 @@
         </div>
         <div class="flex items-center gap-6">
           <button class="text-white px-5 py-2 rounded-full  bg-green-500 hover:bg-[#87ec9f]">Map</button>
-          <ion-icon name="menu" onclick="onToggleMenu(this)" class="text-3xl cursor-pointer md:hidden"></ion-icon>
+          <ion-icon name="menu" id="onToggleMenu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
         </div>
       </nav>
     </header>
@@ -96,7 +96,7 @@
         </div>
         <!-- About Us Button -->
         <div class="absolute left-8 top-14 ">
-          <a href="#" onclick="aboutUs()" id="about-btn"
+          <a href="#" id="about-btn"
             class="bg-gray-200 shadow-lg z-30 text-blue-500  py-2 px-4 rounded-lg hover:bg-gray-200 transition">
             About Gaza Events
           </a>
@@ -238,11 +238,11 @@
             </div>
           </div>
         </div>
-        <button onclick="prevSlide()"
+        <button id="prevSlide"
           class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
           &#10094;
         </button>
-        <button onclick="nextSlide()"
+        <button id="nextSlide"
           class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
           &#10095;
         </button>
