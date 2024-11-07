@@ -1,0 +1,85 @@
+[
+          {
+            "headline": "Breaking: Major earthquake strikes the city, significant damage reported.",
+            "timestamp": "2024-11-08T08:45:00Z",
+            "category": "Natural Disaster",
+            "location": "City Name, Country",
+            "severity": "High",
+            "source": "Local News Agency"
+          },
+          {
+            "headline": "Urgent: Massive wildfire spreads rapidly, thousands evacuated.",
+            "timestamp": "2024-11-08T09:00:00Z",
+            "category": "Natural Disaster",
+            "location": "State/Region, Country",
+            "severity": "High",
+            "source": "National Fire Service"
+          },
+          {
+            "headline": "Alert: Tornado strikes downtown, heavy damage reported.",
+            "timestamp": "2024-11-08T09:30:00Z",
+            "category": "Natural Disaster",
+            "location": "City Name, Country",
+            "severity": "High",
+            "source": "Weather Bureau"
+          },
+          {
+            "headline": "Breaking: Multiple explosions at a chemical plant, emergency crews on site.",
+            "timestamp": "2024-11-06T10:00:00Z",
+            "category": "Accident",
+            "location": "City Name, Country",
+            "severity": "High",
+            "source": "Fire Department"
+          },
+          {
+            "headline": "Warning: Contaminated water supply affects millions, boiling advisory issued.",
+            "timestamp": "2024-11-06T10:15:00Z",
+            "category": "Health Crisis",
+            "location": "Region Name, Country",
+            "severity": "Medium",
+            "source": "Health Department"
+          },
+          {
+            "headline": "Emergency: Passenger plane crashes shortly after takeoff, casualties feared.",
+            "timestamp": "2024-11-06T11:00:00Z",
+            "category": "Accident",
+            "location": "Airport Name, Country",
+            "severity": "High",
+            "source": "Aviation Authority"
+          },
+          {
+            "headline": "Alert: Major power outage affects entire metropolitan area, restoration underway.",
+            "timestamp": "2024-11-06T12:00:00Z",
+            "category": "Infrastructure",
+            "location": "City Name, Country",
+            "severity": "Medium",
+            "source": "Power Company"
+          },
+          {
+            "headline": "Urgent: Severe flooding continues, hundreds trapped in affected areas.",
+            "timestamp": "2024-11-06T12:30:00Z",
+            "category": "Natural Disaster",
+            "location": "Region Name, Country",
+            "severity": "High",
+            "source": "Emergency Response Team"
+          },
+          {
+            "headline": "Breaking: National strike declared by healthcare workers, emergency services affected.",
+            "timestamp": "2024-11-06T13:00:00Z",
+            "category": "Political/Industrial",
+            "location": "Countrywide",
+            "severity": "Medium",
+            "source": "Union Representative"
+          },
+          {
+            "headline": "Warning: Severe winter storm forecast, snow accumulation could disrupt transport.",
+            "timestamp": "2024-11-06T13:30:00Z",
+            "category": "Weather",
+            "location": "State/Region, Country",
+            "severity": "Medium",
+            "source": "National Weather Service"
+          }
+        
+      
+      
+]
