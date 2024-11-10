@@ -3,9 +3,10 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::view('/', 'home');
+Route::view('/article', 'single-article');
+Route::view('/articles', 'articles');
+Route::view('/associations', 'associations');
 
 Route::prefix("/dashboard")->middleware('auth')->group(function () {
     Route::view('/', 'dashboard')->name('dashboard');

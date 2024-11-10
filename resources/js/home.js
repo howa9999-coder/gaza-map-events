@@ -57,33 +57,3 @@ L.marker([31.5, 34.47])
     .addTo(map) // Replace with specific coordinates if needed
     .bindPopup("Gaza Strip Center")
     .openPopup();
-
-//Associations Slide
-
-let currentIndex = 0;
-
-function updateCarousel() {
-    const carousel = document.getElementById("carousel");
-    const totalItems = carousel.children.length;
-    const itemWidth = carousel.children[0].clientWidth;
-    const offset = -currentIndex * itemWidth;
-    carousel.style.transform = `translateX(${offset}px)`;
-}
-
-function nextSlide() {
-    const carousel = document.getElementById("carousel");
-    const totalItems = carousel.children.length;
-    currentIndex = (currentIndex + 1) % totalItems;
-    updateCarousel();
-}
-
-document.getElementById("nextSlide").addEventListener("click", nextSlide);
-
-function prevSlide() {
-    const carousel = document.getElementById("carousel");
-    const totalItems = carousel.children.length;
-    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-    updateCarousel();
-}
-
-document.getElementById("prevSlide").addEventListener("click", prevSlide);

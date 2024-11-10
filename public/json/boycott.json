@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Company A",
+        "reason": "Unethical labor practices",
+        "description": "Company A has been reported for exploiting workers and failing to provide safe working conditions.",
+        "date": "2023-01-15",
+        "link": "https://example.com/resource-company-a",
+        "picture": "https://example.com/images/company-a.jpg"
+    },
+    {
+        "name": "Company B",
+        "reason": "Environmental violations",
+        "description": "Company B has faced numerous lawsuits for polluting local water sources and failing to adhere to environmental regulations.",
+        "date": "2023-02-20",
+        "link": "https://example.com/resource-company-b",
+        "picture": "https://example.com/images/company-b.jpg"
+    },
+    {
+        "name": "Company C",
+        "reason": "Discriminatory policies",
+        "description": "Company C has been criticized for its discriminatory hiring practices and lack of diversity in leadership positions.",
+        "date": "2023-03-05",
+        "link": "https://example.com/resource-company-c",
+        "picture": "https://example.com/images/company-c.jpg"
+    },
+    {
+        "name": "Company D",
+        "reason": "Animal cruelty",
+        "description": "Company D has been exposed for inhumane treatment of animals in their supply chain.",
+        "date": "2023-04-10",
+        "link": "https://example.com/resource-company-d",
+        "picture": "https://example.com/images/company-d.jpg"
+    },
+    {
+        "name": "Company E",
+        "reason": "Tax evasion",
+        "description": "Company E has been involved in schemes to avoid paying taxes, depriving communities of needed resources.",
+        "date": "2023-05-15",
+        "link": "https://example.com/resource-company-e",
+        "picture": "https://example.com/images/company-e.jpg"
+    },
+    {
+        "name": "Company F",
+        "reason": "Excessive CEO pay",
+        "description": "Company F's CEO received a salary 300 times that of the average employee, raising concerns about income inequality.",
+        "date": "2023-06-20",
+        "link": "https://example.com/resource-company-f",
+        "picture": "https://example.com/images/company-f.jpg"
+    },
+    {
+        "name": "Company G",
+        "reason": "Misinformation",
+        "description": "Company G has been accused of spreading misinformation about health products, misleading consumers.",
+        "date": "2023-07-25",
+        "link": "https://example.com/resource-company-g",
+        "picture": "https://example.com/images/company-g.jpg"
+    },
+    {
+        "name": "Company H",
+        "reason": "Labor strikes",
+        "description": "Company H faced labor strikes due to poor wages and working conditions, prompting calls for a boycott.",
+        "date": "2023-08-30",
+        "link": "https://example.com/resource-company-h",
+        "picture": "https://example.com/images/company-h.jpg"
+    },
+    {
+        "name": "Company I",
+        "reason": "Privacy violations",
+        "description": "Company I has been involved in data breaches and mishandling of customer information.",
+        "date": "2023-09-12",
+        "link": "https://example.com/resource-company-i",
+        "picture": "https://example.com/images/company-i.jpg"
+    },
+    {
+        "name": "Company J",
+        "reason": "Cultural appropriation",
+        "description": "Company J has been criticized for appropriating cultural symbols without understanding or respect.",
+        "date": "2023-10-05",
+        "link": "https://example.com/resource-company-j",
+        "picture": "https://example.com/images/company-j.jpg"
+    }
+]
