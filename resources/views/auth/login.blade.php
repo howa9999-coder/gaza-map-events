@@ -27,9 +27,10 @@
           <label class="block font-medium text-sm text-gray-700" for="email">
             {{ __('Email') }}
           </label>
-          <input class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-            id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required
-            autofocus autocomplete="username">
+          <input
+            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+            id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+            autocomplete="username">
           @error('email')
             <ul class="text-sm text-red-600 space-y-1 mt-2">
               @foreach ((array) $errors->get('email') as $message)
@@ -45,9 +46,9 @@
             {{ __('Password') }}
           </label>
 
-          <input class="w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-            id="password" class="block mt-1 w-full" type="password" name="password" required
-            autocomplete="current-password">
+          <input
+            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+            id="password" class="" type="password" name="password" required autocomplete="current-password">
 
           @error('password')
             <ul class="text-sm text-red-600 space-y-1 mt-2">

@@ -52,7 +52,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- libraries -->
-    @vite(['resources/css/dashboard.css', 'resources/js/dashboard.js'])
     @vite(['resources/css/dashboard/sweetalert2.min.css', 'resources/css/dashboard/notyf.min.css', 'resources/css/dashboard/volt.css'])
 
     @yield('styles')

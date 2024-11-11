@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-theme-primary px-4 col-12 d-lg-none">
   <a class="navbar-brand" href="#">
-    <img class="navbar-brand-dark" src="{{ url('images/brand/light.svg') }}" alt="{{ __('dashboard logo') }}" />
-    <img class="navbar-brand-light" src="{{ url('images/brand/dark.svg') }}" alt="{{ __('dashboard logo') }}" />
+    <img class="navbar-brand-dark" src="{{ url('images/brand/logo.png') }}" alt="{{ __('logo') }}" />
+    <img class="navbar-brand-light" src="{{ url('images/brand/logo.png') }}" alt="{{ __('logo') }}" />
   </a>
   <div class="d-flex align-items-center">
     <button class="navbar-toggler d-lg-none collapsed" type="button" data-bs-toggle="collapse"
@@ -20,7 +20,7 @@
             alt="{{ __('Bonnie Green') }}">
         </div>
         <div class="d-block">
-          <h2 class="h5 mb-3">Hi, {{ auth()->user()?->username }}</h2>
+          <h2 class="h5 mb-3">Hi, {{ auth()->user()?->name }}</h2>
           <a href="{{ route('logout') }}" tabindex="-1"
             class="btn btn-secondary btn-sm d-inline-flex align-items-center">
             <svg class="icon icon-xxs me-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -48,10 +48,9 @@
       <li class="nav-item">
         <a href="{{ route('dashboard') }}" class="nav-link d-flex align-items-center">
           <span class="sidebar-icon">
-            <img src="{{ url('images/brand/light.svg') }}" height="20" width="20"
-              alt="{{ __('dashboard logo') }}">
+            <img src="{{ url('images/brand/logo.png') }}" alt="{{ __('logo') }}">
           </span>
-          <span class="mt-1 ms-1 sidebar-text">{{ __('Corporate Dictionary') }}</span>
+          <span class="mt-1 ms-1 sidebar-text">{{ __('Dashboard') }}</span>
         </a>
       </li>
 
@@ -117,7 +116,7 @@
               </g>
             </svg>
           </span>
-          <span class="sidebar-text">{{ __('Companies') }}</span>
+          <span class="sidebar-text">{{ __('Articles') }}</span>
         </a>
       </li>
 
