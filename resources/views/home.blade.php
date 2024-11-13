@@ -24,64 +24,66 @@
     </div>
   </div>
 
+
+  <!--Red div-->
+  <div class=" bg-red-600 h-[46px] py-2"></div>
+
   <!--Articles section-->
-  <div class="shadow-md">
-    <div class="container mx-auto p-4 mt-4 " id="articles">
-      <h2 class="text-2xl font-bold my-8 text-center">Latest Articles</h2>
-      <div class="flex flex-wrap -mx-2">
-        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
-          <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold">Article Title 1</h3>
-              <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
-                its content.</p>
-              <div class="mt-4 text-sm text-gray-500">
-                <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
-              </div>
+  <div class="container mx-auto p-4 mt-4 " id="articles">
+    <h2 class="text-2xl font-bold my-8 text-center">Latest Articles</h2>
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Article Title 1</h3>
+            <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
+              its content.</p>
+            <div class="mt-4 text-sm text-gray-500">
+              <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
             </div>
           </div>
         </div>
-
-        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
-          <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold">Article Title 1</h3>
-              <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
-                its content.</p>
-              <div class="mt-4 text-sm text-gray-500">
-                <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
-          <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
-            <div class="p-4">
-              <h3 class="text-lg font-semibold">Article Title 2</h3>
-              <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
-                its content.</p>
-              <div class="mt-4 text-sm text-gray-500">
-                <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-      <div class="flex justify-end my-6">
-        <a href="/more-articles" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
-          More Articles
-        </a>
       </div>
 
-      <hr>
+      <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Article Title 1</h3>
+            <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
+              its content.</p>
+            <div class="mt-4 text-sm text-gray-500">
+              <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+          <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
+          <div class="p-4">
+            <h3 class="text-lg font-semibold">Article Title 2</h3>
+            <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
+              its content.</p>
+            <div class="mt-4 text-sm text-gray-500">
+              <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
+    <div class="flex justify-end my-6">
+      <a href="/more-articles" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+        More Articles
+      </a>
+    </div>
+
+    <hr>
   </div>
 
   <!--Map section-->
@@ -107,11 +109,11 @@
   </div>
 
   <!--Associations section-->
-  <div class="container mx-auto my-8 p-6" id="associations">
+  <div class="container mx-auto my-8 p-6 carousel" id="associations">
     <h2 class="text-2xl font-bold my-8 text-center">Associations</h2>
     <div class="relative">
       <div class="overflow-hidden">
-        <div class="flex transition-transform duration-300 ease-in-out" id="carousel">
+        <div class="flex transition-transform duration-300 ease-in-out carousel-body">
           <!-- Association Item 1 -->
           <div class="flex-none w-full md:w-1/3 p-2">
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -159,11 +161,11 @@
         </div>
       </div>
       <button id="prevSlide"
-        class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
+        class="prevSlide absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
         &#10094;
       </button>
       <button id="nextSlide"
-        class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
+        class="nextSlide absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
         &#10095;
       </button>
     </div>

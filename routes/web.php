@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
 
 // Debugbar::addMeasure("now", LARAVEL_START, microtime(true));
 // Debugbar::measure("My long operation", function () {
@@ -13,8 +14,8 @@ use App\Http\Controllers\CategoryController;
 // });
 
 Route::view("/", "home");
-Route::view("/article", "single-article");
-Route::view("/articles", "articles");
+Route::get("/article/{article:slug}", [ArticleController::class, "show"])->name("article_show");
+Route::get("/articles", [PageController::class, "articles"])->name("articles_page");
 Route::view("/associations", "associations");
 
 Route::prefix("/dashboard")->middleware("auth")->group(function () {

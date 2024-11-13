@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 class ArticleController extends Controller {
 
   public function index() {
-    $articles = Article::paginate(10);
+    $articles = Article::orderBy("created_at", "desc")->paginate(10);
     $categories = Category::all();
     return view("dashboard.articles.index", compact("articles", "categories"));
   }
@@ -99,14 +99,13 @@ class ArticleController extends Controller {
     return url("images/articles/$image_name");
   }
 
-  public function show($article_id) {
-    $article = Article::where('id', $article_id)->where('status', ">", 0)->withTranslation()->first();
-    $comments = Comment::where("article_id", $article->id)->orderBy("created_at", "DESC")->limit(20)->get();
-    if ($article) {
-      return view('article', compact("article", "comments"));
-    } else {
-      abort(404);
+  public function show(Article $article) {
+    // $article = Article::where('id', $article_id)->where('status', ">", 0)->withTranslation()->first();
+    if ($article->status > 0) {
+      $comments = Comment::where("article_id", $article->id)->orderBy("created_at", "DESC")->limit(20)->get();
+      return view('single-article', compact("article", "comments"));
     }
+    abort(404);
   }
 
   public function edit(Article $article) {
@@ -173,7 +172,7 @@ class ArticleController extends Controller {
     $res = $article->save();
     $request->session()->flash('article-saved', $res);
 
-    return redirect()->route("article_edit", $article->id);
+    return redirect()->route("articles_manage", $article->id);
   }
 
   public function destroy(Article $article) {

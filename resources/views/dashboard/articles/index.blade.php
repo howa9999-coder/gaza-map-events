@@ -88,7 +88,8 @@
               </td>
               <td title="{{ $article->category?->title }}" class="wrap">
                 @if (isset($article->category->id))
-                  <a href="{{ route('category_edit', $article->category->id) }}">{{ $article->category->title }}</a>
+                  <a
+                    href="{{ route('category_edit', $article->category->id) }}">{{ strlen($article->category->title) > 30 ? substr($article->category->title, 0, 30) . '...' : $article->category->title }}</a>
                 @else
                   - - -
                 @endif

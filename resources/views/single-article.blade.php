@@ -2,7 +2,9 @@
 
 @section('content')
   <main class="pt-24 flex flex-col mt-10 items-center">
+
     <div class="container mx-auto px-4 relative">
+
       <!-- Map Section -->
       <div id="map" class="w-ful h-[450px] md:h-[400px] mb-6 shadow-lg rounded-lg overflow-hidden z-10 "></div>
       <!--draggbale list-->
@@ -12,9 +14,9 @@
       </div>
       <!--Article content-->
       <div class="bg-white shadow-md  p-6 mb-8">
-        <h1 id="title" class="text-3xl font-bold text-gray-800 mb-4">Article Title</h1>
+        <h1 id="title" class="text-3xl font-bold text-gray-800 mb-4">{{ $article->title }}</h1>
         <div id="article" class="text-gray-700 leading-relaxed space-y-4">
-          <p>article content .</p>
+          <p>{!! $article->content !!}</p>
         </div>
         <h6 id="author"></h6>
         <h6 id="date"></h6>
@@ -40,10 +42,11 @@
       <div class="container mx-auto my-4 p-6">
         <h2 class="text-2xl font-bold my-2 text-center">Suggested articles</h2>
 
-        <div id="suggestion-list" class="my-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="card"></div>
+        <div class="my-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
       </div>
+
       <!--Associations-->
-      <div class="container mx-auto my-4 p-6" id="associationsSlide">
+      <div class="container mx-auto my-4 p-6">
         <h2 class="text-2xl font-bold my-2 text-center">Associations</h2>
         <div class="relative">
           <div class="overflow-hidden">
@@ -70,44 +73,51 @@
           <div class="mt-6">
             <h2 class="text-xl font-semibold">Comments</h2>
             <div class="mt-4">
-              <div class="border-b pb-4 mb-4 flex items-start">
-                <img src="https://via.placeholder.com/40" alt="User1" class="rounded-full mr-4">
-                <div class="flex-1">
-                  <div class="flex justify-between">
-                    <div>
-                      <p class="font-bold">User1</p>
-                      <p>This is a comment.</p>
-                    </div>
-                    <div class="flex items-center">
-                      <button class="mr-2 text-blue-500">👍</button>
-                      <span class="mr-2">10</span>
-                      <button class="mr-2 text-red-500">👎</button>
-                      <span class="mr-2">2</span>
-                      <button class="text-gray-500">Reply</button>
-                    </div>
-                  </div>
-                  <!-- Replies -->
-                  <div class="ml-6 mt-2 border-l pl-4">
-                    <div class="flex items-start">
-                      <img src="https://via.placeholder.com/40" alt="User3" class="rounded-full mr-4">
-                      <div class="flex-1">
-                        <div class="flex justify-between">
-                          <div>
-                            <p class="font-bold">User3</p>
-                            <p>This is a reply to User1's comment.</p>
-                          </div>
-                          <div class="flex items-center">
-                            <button class="mr-2 text-blue-500">👍</button>
-                            <span class="mr-2">5</span>
-                            <button class="mr-2 text-red-500">👎</button>
-                            <span class="mr-2">1</span>
-                          </div>
-                        </div>
+              @foreach ($comments as $comment)
+                <div class="border-b pb-4 mb-4 flex items-start">
+                  <img src="{{ $comment->user->image }}" alt="User1" class="rounded-full mr-4">
+                  <div class="flex-1">
+                    <div class="flex justify-between">
+                      <div>
+                        <p class="font-bold">{{ $comment->user->name }}</p>
+                        <p>{{ $comment->text }}</p>
+                      </div>
+                      <div class="flex items-center">
+                        <button class="mr-2 text-blue-500">👍</button>
+                        <span class="mr-2">{{ $comment->likes_count }}</span>
+                        <button class="mr-2 text-red-500">👎</button>
+                        <span class="mr-2">{{ $comment->dislikes_count }}</span>
+                        <button class="text-gray-500">Reply</button>
                       </div>
                     </div>
+
+                    @if ($comment->replys->count() > 0)
+                      <!-- Replies -->
+                      <div class="ml-6 mt-2 border-l pl-4">
+                        @foreach ($comment->replys as $reply)
+                          <div class="flex items-start">
+                            <img src="{{ $reply->user->image }}" alt="{{ $reply->user->name }}" class="rounded-full mr-4">
+                            <div class="flex-1">
+                              <div class="flex justify-between">
+                                <div>
+                                  <p class="font-bold">{{ $reply->user->name }}</p>
+                                  <p>{{ $reply->text }}</p>
+                                </div>
+                                <div class="flex items-center">
+                                  <button class="mr-2 text-blue-500">👍</button>
+                                  <span class="mr-2">{{ $reply->likes_count }}</span>
+                                  <button class="mr-2 text-red-500">👎</button>
+                                  <span class="mr-2">{{ $reply->dislikes_count }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        @endforeach
+                      </div>
+                    @endif
                   </div>
                 </div>
-              </div>
+              @endforeach
               <div class="border-b pb-4 mb-4 flex items-start">
                 <img src="https://via.placeholder.com/40" alt="User2" class="rounded-full mr-4">
                 <div class="flex-1">

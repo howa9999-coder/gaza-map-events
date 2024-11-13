@@ -1,27 +1,30 @@
-//Nav 
-  const navLinks = document.querySelector('.nav-links')
-    function onToggleMenu(e) {
-        if (e.name === 'menu') {
-            e.name = 'close';
-        } else {
-            e.name = 'menu';
-        }
-        navLinks.classList.toggle('top-[95%]')
-    }  
+//Nav
+const navLinks = document.querySelector(".nav-links");
+function onToggleMenu(e) {
+  if (e.name === "menu") {
+    e.name = "close";
+  } else {
+    e.name = "menu";
+  }
+  navLinks.classList.toggle("top-[95%]");
+}
 
 //Latest Articles
-fetch('../json/layer.json')
-    .then(response => response.json())
-    .then(data => {
-        // Limit to the first 3 articles
-        const firstThreeArticles = data.slice(0, 3);
+fetch("../json/layer.json")
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    // Limit to the first 3 articles
+    const firstThreeArticles = data.slice(0, 3);
 
-        // Clear the existing content
-        document.querySelector('#latestArticles').innerHTML = "";
+    // Clear the existing content
+    document.querySelector("#latestArticles").innerHTML = "";
 
-        // Loop through the first 3 articles and display them
-        firstThreeArticles.forEach(article => {
-            const articleElement = `
+    // Loop through the first 3 articles and display them
+    console.log(firstThreeArticles);
+
+    firstThreeArticles.forEach((article) => {
+      const articleElement = `
                 <div class="bg-white shadow-lg rounded-lg p-4 relative hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out">
                  <img src="${article.image}" alt="${article.title}" class="w-full object-cover rounded-lg max-h-48 mb-4">
                     <h2 class="text-xl font-semibold">${article.title}</h2>
@@ -35,19 +38,19 @@ fetch('../json/layer.json')
                         Read
                     </button>
                 </div>`;
-            
-            // Append the article to the grid container
-            document.querySelector('#latestArticles').innerHTML += articleElement;
-        });
-        // Attach event listeners to all read buttons
-        document.querySelectorAll('.read-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const title = this.getAttribute('data-title');
-                localStorage.setItem('title', title);
-                window.location.href = "../html/art.html"; 
-            });
-        });
-    })
-    .catch(error => console.error('Error loading the articles:', error));
-//slide map
 
+      // Append the article to the grid container
+      document.querySelector("#latestArticles").innerHTML += articleElement;
+    });
+    console.log(document.querySelector("#latestArticles"));
+    // Attach event listeners to all read buttons
+    document.querySelectorAll(".read-button").forEach((button) => {
+      button.addEventListener("click", function () {
+        const title = this.getAttribute("data-title");
+        localStorage.setItem("title", title);
+        window.location.href = "../html/art.html";
+      });
+    });
+  })
+  .catch((error) => console.error("Error loading the articles:", error));
+//slide map

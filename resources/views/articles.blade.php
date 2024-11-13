@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-  <main class="pt-24 flex flex-col mt-10 items-center">
+  <main class="pt-24 flex flex-col mt-10 items-center bg-gray-200">
     <div class="container mx-auto p-4 relative">
       <!-- Draggable boycott list -->
       <div class="navigation absolute top-0 right-0 bg-gray-100 rounded-lg shadow-md z-20">
@@ -28,9 +28,30 @@
 
       <!-- Articles Cards -->
       <h2 class="text-2xl  font-bold mt-4  text-center">Articles</h2>
-      <div class="my-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="card"></div>
-      <div id="pagination" class="mt-4 flex justify-center"></div>
-      <hr>
+      <div class="my-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach ($articles as $article)
+          <div
+            class="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out relative">
+            <img src="images/articles/{{ $article->image }}" alt="{{ $article->title }}"
+              class="w-full object-cover rounded-lg max-h-48 mb-4">
+            <h2 class="text-xl font-semibold">{{ $article->title }}</h2>
+            <p class="text-gray-700 mt-2">{{ $article->description }}</p>
+            <div class="mt-4 text-sm text-gray-500">
+              <p>Author: {{ $article->author }}</p>
+              <p>Date: {{ $article->date() }}</p>
+              <p>Category: {{ $article?->category?->title ?? 'Uncategorised' }}</p>
+            </div>
+            <a href="{{ route('article_show', $article->slug) }}"
+              class="read-button absolute bottom-4 right-4 text-blue-500 cursor-pointer p-0 bg-transparent border-none">
+              Read
+            </a>
+          </div>
+        @endforeach
+      </div>
+      <div id="pagination" class="mt-6 flex justify-center"></div>
+
+      <hr class="my-6">
+
       <!--Associations-->
       <div class="container mx-auto my-6 p-6 carousel">
         <h2 class="text-2xl font-bold my-2 text-center">Associations</h2>
@@ -51,6 +72,7 @@
         </div>
         <hr>
       </div>
+
     </div>
   </main>
 @endsection
@@ -71,16 +93,17 @@
             associations.forEach((association) => {
               document.querySelector(
                 "#association-carousel"
-              ).innerHTML += `<div class="flex-none w-full md:w-1/3 p-2">
-                                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                                        <img src="${association.logo}" alt="${association.name}" class="w-full h-40 object-cover">
-                                        <div class="p-4">
-                                            <h3 class="font-semibold text-lg">${association.name}</h3>
-                                            <p class="mt-2 text-gray-600">${association.description}</p>
-                                            <a href="${association.website}" class="mt-4 inline-block text-blue-500 hover:underline">${association.website}</a>
-                                        </div>
-                                    </div>
-                                </div>`;
+              ).innerHTML += `
+              <div class="flex-none w-full md:w-1/3 p-2">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                  <img src="${association.logo}" alt="${association.name}" class="w-full h-40 object-cover">
+                  <div class="p-4">
+                    <h3 class="font-semibold text-lg">${association.name}</h3>
+                    <p class="mt-2 text-gray-600">${association.description}</p>
+                    <a href="${association.website}" class="mt-4 inline-block text-blue-500 hover:underline">${association.website}</a>
+                  </div>
+                </div>
+              </div>`;
             });
           }
           // Initial render

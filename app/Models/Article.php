@@ -25,6 +25,7 @@ class Article extends Model {
     'title',
     'description',
     'content',
+    'slug',
     "image",
     "comment_status",
     "user_id",
@@ -102,5 +103,9 @@ class Article extends Model {
     } else {
       return "error in icon";
     }
+  }
+
+  public function date() {
+    return $this->created_at;
   }
 }

@@ -14,7 +14,7 @@ return new class extends Migration {
       $table->foreignId('user_id');
       if (!$this->multilingual) {
         $table->string('title');
-        $table->string('description')->nullable();
+        $table->text('description')->nullable();
         $table->text('content')->nullable();
       }
       $table->foreignId('category_id')->nullable();
@@ -24,6 +24,7 @@ return new class extends Migration {
         2 => public (everybody)
         */
       $table->tinyInteger('status')->default(0);
+      $table->string('slug');
       /* ====== comment status table ======
         0 => closed and hidden
         1 => closed but users can see the old comments
