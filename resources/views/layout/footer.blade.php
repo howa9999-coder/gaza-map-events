@@ -14,9 +14,9 @@
           <div>
             <h3 class="font-bold text-lg mb-4">Menu</h3>
             <ul class="space-y-2">
-              <li><a href="#home" class="hover:underline">Home</a></li>
-              <li><a href="#articles" class="hover:underline">Articles</a></li>
-              <li><a href="#associations" class="hover:underline">Associations</a></li>
+              <li><a href="/home" class="hover:underline">Home</a></li>
+              <li><a href="/articles" class="hover:underline">Articles</a></li>
+              <li><a href="/map" class="hover:underline">Map</a></li>
             </ul>
           </div>
         </div>

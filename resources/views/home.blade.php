@@ -32,6 +32,28 @@
   <div class="container mx-auto p-4 mt-4 " id="articles">
     <h2 class="text-2xl font-bold my-8 text-center">Latest Articles</h2>
     <div class="flex flex-wrap -mx-2">
+
+      @foreach ($latest_articles as $article)
+        <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
+          <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <a href="{{ route('article_show', $article->slug) }}">
+              <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
+            </a>
+            <div class="p-4">
+              <a href="{{ route('article_show', $article->slug) }}">
+                <h3 class="text-lg font-semibold">{{ $article->title }}</h3>
+              </a>
+              <p class="text-gray-600 mt-1">{{ $article->description }}</p>
+              <div class="mt-4 text-sm text-gray-500">
+                {{-- Thursday 25th of December 1975 02:15:16 PM --}}
+                <span>By {{ $article->user->name }}</span> |
+                <span>{{ $article->created_at->format('Y j h:i:s A') }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endforeach
+      {{--
       <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
           <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
@@ -45,21 +67,6 @@
           </div>
         </div>
       </div>
-
-      <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-          <img src="images/article.webp" alt="Article Image" class="w-full h-50 object-cover">
-          <div class="p-4">
-            <h3 class="text-lg font-semibold">Article Title 1</h3>
-            <p class="text-gray-600 mt-1">This is a short description of the article that gives a brief overview of
-              its content.</p>
-            <div class="mt-4 text-sm text-gray-500">
-              <span>By Author Name</span> | <span>Published on Oct 29, 2024</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
 
       <div class="w-full sm:w-1/2 md:w-1/3 px-2 mb-4">
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -73,12 +80,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
 
 
     </div>
     <div class="flex justify-end my-6">
-      <a href="/more-articles" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+      <a href="/articles" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
         More Articles
       </a>
     </div>
@@ -109,69 +116,7 @@
   </div>
 
   <!--Associations section-->
-  <div class="container mx-auto my-8 p-6 carousel" id="associations">
-    <h2 class="text-2xl font-bold my-8 text-center">Associations</h2>
-    <div class="relative">
-      <div class="overflow-hidden">
-        <div class="flex transition-transform duration-300 ease-in-out carousel-body">
-          <!-- Association Item 1 -->
-          <div class="flex-none w-full md:w-1/3 p-2">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="images/association.jpg" alt="Association 1" class="w-full h-40 object-cover">
-              <div class="p-4">
-                <h3 class="font-semibold text-lg">Association 1</h3>
-                <p class="mt-2 text-gray-600">Description of Association 1.</p>
-                <a href="/association1" class="mt-4 inline-block text-blue-500 hover:underline">View More</a>
-              </div>
-            </div>
-          </div>
-          <!-- Association Item 2 -->
-          <div class="flex-none w-full md:w-1/3 p-2">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="images/association.jpg" alt="Association 2" class="w-full h-40 object-cover">
-              <div class="p-4">
-                <h3 class="font-semibold text-lg">Association 2</h3>
-                <p class="mt-2 text-gray-600">Description of Association 2.</p>
-                <a href="/association2" class="mt-4 inline-block text-blue-500 hover:underline">View More</a>
-              </div>
-            </div>
-          </div>
-          <!-- Association Item 3 -->
-          <div class="flex-none w-full md:w-1/3 p-2">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="images/association.jpg" alt="Association 3" class="w-full h-40 object-cover">
-              <div class="p-4">
-                <h3 class="font-semibold text-lg">Association 3</h3>
-                <p class="mt-2 text-gray-600">Description of Association 3.</p>
-                <a href="/association3" class="mt-4 inline-block text-blue-500 hover:underline">View More</a>
-              </div>
-            </div>
-          </div>
-          <!-- Association Item 4 -->
-          <div class="flex-none w-full md:w-1/3 p-2">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src="images/association.jpg" alt="Association 4" class="w-full h-40 object-cover">
-              <div class="p-4">
-                <h3 class="font-semibold text-lg">Association 4</h3>
-                <p class="mt-2 text-gray-600">Description of Association 4.</p>
-                <a href="/association3" class="mt-4 inline-block text-blue-500 hover:underline">View More</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <button id="prevSlide"
-        class="prevSlide absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
-        &#10094;
-      </button>
-      <button id="nextSlide"
-        class="nextSlide absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
-        &#10095;
-      </button>
-    </div>
-    <hr>
-
-  </div>
+  <x-associations-section />
 @endsection
 
 @section('scripts')

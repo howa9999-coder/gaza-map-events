@@ -13,10 +13,10 @@ use App\Http\Controllers\PageController;
 // Route::view("/", "home");
 // });
 
-Route::view("/", "home");
+Route::get("/", [PageController::class, "home"])->name("home");
 Route::get("/article/{article:slug}", [ArticleController::class, "show"])->name("article_show");
 Route::get("/articles", [PageController::class, "articles"])->name("articles_page");
-Route::view("/associations", "associations");
+Route::get("/map", [PageController::class, "map"])->name("map_page");
 
 Route::prefix("/dashboard")->middleware("auth")->group(function () {
   Route::view("/", "dashboard")->name("dashboard");

@@ -32,14 +32,17 @@
         @foreach ($articles as $article)
           <div
             class="bg-white shadow-lg rounded-lg p-4 hover:shadow-2xl hover:scale-105 transition-all duration-300 ease-in-out relative">
-            <img src="images/articles/{{ $article->image }}" alt="{{ $article->title }}"
-              class="w-full object-cover rounded-lg max-h-48 mb-4">
-            <h2 class="text-xl font-semibold">{{ $article->title }}</h2>
+            <a href="{{ route('article_show', $article->slug) }}">
+              <img src="images/articles/{{ $article->image }}" alt="{{ $article->title }}"
+                class="w-full object-cover rounded-lg max-h-48 mb-4">
+            </a>
+            <a href="{{ route('article_show', $article->slug) }}">
+              <h2 class="text-xl font-semibold">{{ $article->title }}</h2>
+            </a>
             <p class="text-gray-700 mt-2">{{ $article->description }}</p>
             <div class="mt-4 text-sm text-gray-500">
               <p>Author: {{ $article->author }}</p>
               <p>Date: {{ $article->date() }}</p>
-              <p>Category: {{ $article?->category?->title ?? 'Uncategorised' }}</p>
             </div>
             <a href="{{ route('article_show', $article->slug) }}"
               class="read-button absolute bottom-4 right-4 text-blue-500 cursor-pointer p-0 bg-transparent border-none">
@@ -52,26 +55,8 @@
 
       <hr class="my-6">
 
-      <!--Associations-->
-      <div class="container mx-auto my-6 p-6 carousel">
-        <h2 class="text-2xl font-bold my-2 text-center">Associations</h2>
-        <div class="relative">
-          <div class="overflow-hidden">
-            <div class="flex transition-transform duration-300 ease-in-out carousel-body" id="association-carousel">
-              <!--Cards-->
-            </div>
-          </div>
-          <button
-            class="prevSlide absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
-            &#10094;
-          </button>
-          <button
-            class="nextSlide absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white p-2 rounded-full">
-            &#10095;
-          </button>
-        </div>
-        <hr>
-      </div>
+      <!--Associations section-->
+      <x-associations-section />
 
     </div>
   </main>
@@ -82,33 +67,4 @@
 
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
-  <script>
-    fetch("json/association.json")
-      .then((response) => response.json())
-      .then((data) => {
-        data.forEach((item) => {
-          // Function to render articles
-          function renderAssociations(associations) {
-            document.querySelector("#association-carousel").innerHTML = ""; // Clear existing cards
-            associations.forEach((association) => {
-              document.querySelector(
-                "#association-carousel"
-              ).innerHTML += `
-              <div class="flex-none w-full md:w-1/3 p-2">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <img src="${association.logo}" alt="${association.name}" class="w-full h-40 object-cover">
-                  <div class="p-4">
-                    <h3 class="font-semibold text-lg">${association.name}</h3>
-                    <p class="mt-2 text-gray-600">${association.description}</p>
-                    <a href="${association.website}" class="mt-4 inline-block text-blue-500 hover:underline">${association.website}</a>
-                  </div>
-                </div>
-              </div>`;
-            });
-          }
-          // Initial render
-          renderAssociations(data);
-        });
-      });
-  </script>
 @endsection

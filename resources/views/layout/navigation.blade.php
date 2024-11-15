@@ -15,9 +15,6 @@
           <a class="hover:text-gray-500" href="/articles">Articles</a>
         </li>
         <li>
-          <a class="hover:text-gray-500" href="/associations">Associations</a>
-        </li>
-        <li>
           <a class="hover:text-gray-500" href="/contact">Contact us</a>
         </li>
       </ul>

@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.status-buttons {
+  transition: 0.5 ease-in-out;
+}
+.status-buttons:focus,
+.status-buttons:active,
+.status-buttons.active {
+  transform: scale(1.12);
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.5) !important;
+}

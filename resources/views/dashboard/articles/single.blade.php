@@ -7,7 +7,7 @@
 
 @section('styles')
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
-  @vite('resources/css/dashboard/style.css')
+  @vite('resources/css/dashboard.css')
   @vite('resources/css/editor.css')
 @endsection
 
