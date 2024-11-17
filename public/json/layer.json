@@ -2,7 +2,7 @@
   {
     "name": "Education_facilities",
     "type": "polygon",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "red",
     "weight": "2",
@@ -21,7 +21,7 @@
   {
     "name": "Gaza_strip",
     "type": "polygon",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Agazastrip_municipalboundaries&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Agazastrip_municipalboundaries&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "orange",
     "weight": "2",
@@ -40,7 +40,7 @@
   {
     "name": "Education",
     "type": "polygon",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "red",
     "weight": "2",
@@ -59,7 +59,7 @@
   {
     "name": "facilities",
     "type": "polygon",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Ahotosm_pse_education_facilities_polygons_shp&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "red",
     "weight": "2",
@@ -78,7 +78,7 @@
   {
     "name": "Gaza_strip",
     "type": "polygon",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Agazastrip_municipalboundaries&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Agazastrip_municipalboundaries&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "orange",
     "weight": "2",
@@ -98,7 +98,7 @@
   {
     "name": "testLine",
     "type": "line",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestline&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Atestline&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "green",
     "weight": "2",
@@ -117,7 +117,7 @@
   {
     "name": "testPoints",
     "type": "point",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "white",
     "weight": "2",
@@ -136,7 +136,7 @@
   {
     "name": "test",
     "type": "point",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "green",
     "weight": "2",
@@ -187,7 +187,7 @@
   {
     "name": "Points",
     "type": "point",
-    "wfsURL": "http://localhost:8080/geoserver/gazaProject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaProject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
+    "wfsURL": "http://localhost:8080/geoserver/gazaproject/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=gazaproject%3Atestpoints&maxFeatures=50&outputFormat=application%2Fjson",
     "className": "customPop",
     "color": "white",
     "weight": "2",

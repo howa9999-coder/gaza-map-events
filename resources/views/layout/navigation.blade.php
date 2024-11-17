@@ -20,16 +20,8 @@
       </ul>
     </div>
     <div class="flex items-center gap-6">
-      <button class="text-white px-5 py-2 rounded-full  bg-green-500 hover:bg-[#87ec9f]">Map</button>
+      <a href="/map" class="text-white px-5 py-2 rounded-full  bg-green-500 hover:bg-[#87ec9f]">Map</a>
       <ion-icon name="menu" id="onToggleMenu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
     </div>
   </nav>
 </header>
-<!--Urgent-->
-<div class="fixed top-20 left-0 right-0 bg-red-600 text-white py-2 overflow-hidden z-50">
-  <div class="marquee">
-    <span class="px-4"> Emergency News: Major updates on the situation in Gaza... </span>
-    <span class="px-4"> Emergency News: Relief efforts are ongoing... </span>
-    <span class="px-4"> Emergency News: Safety tips for residents... </span>
-  </div>
-</div>

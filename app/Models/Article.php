@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Event;
 
 // this way of declaring the class is for DB translation (one model multi languages)
 // class Article extends Model implements TranslatableContract {
@@ -47,6 +48,10 @@ class Article extends Model {
 
   public function comments() {
     return $this->hasMany(Comment::class);
+  }
+
+  public function events() {
+    return $this->hasMany(Event::class);
   }
 
   public function tags_text($tags) {

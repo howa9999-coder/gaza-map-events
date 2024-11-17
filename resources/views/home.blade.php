@@ -107,7 +107,8 @@
           intuitive and comprehensive view of the destruction across various regions.
         </p>
 
-        <button class="bg-green-500 mt-3 text-white px-5 py-2 rounded-full hover:bg-[#87ec9f]">Map</button>
+        <a href="/map"
+          class="inline-block bg-green-500 mt-3 text-white px-5 py-2 rounded-full hover:bg-[#87ec9f]">Map</a>
 
       </div>
       <div id="map" class="lg:w-1/2 mt-3 z-20 w-full rounded-lg shadow" style="height: 400px;"></div>

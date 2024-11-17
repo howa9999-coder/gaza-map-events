@@ -13,12 +13,15 @@ class PageController extends Controller {
     return view("home", compact("latest_articles"));
   }
   public function articles() {
-    $articles = Article::orderBy("articles.created_at", "desc")->with("category")->paginate(10);
+    $articles = Article::orderBy("articles.created_at", "desc")->paginate(10);
     $categories = Category::all();
     return view("articles", compact("articles", "categories"));
   }
   public function map() {
-    $events = Event::all();
+    $events = Event::with("article")->get();
+    // echo ($events->map(fn($event) => $event->shapes_json()));
+    // echo ($events->pluck('shapes')->toJson());
+    // dd();
     return view("map", compact("events"));
   }
 }

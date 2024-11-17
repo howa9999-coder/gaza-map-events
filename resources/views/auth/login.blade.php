@@ -1,6 +1,10 @@
 @extends('dashboard.empty-layout')
 
-@section('content')
+@section('header')
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+@endsection
+
+@section('page')
   <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     <div>
       <a href="/">

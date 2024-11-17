@@ -13,7 +13,6 @@ function onToggleMenu(e) {
 fetch("../json/layer.json")
   .then((response) => response.json())
   .then((data) => {
-    console.log(data);
     // Limit to the first 3 articles
     const firstThreeArticles = data.slice(0, 3);
 
@@ -21,7 +20,6 @@ fetch("../json/layer.json")
     document.querySelector("#latestArticles").innerHTML = "";
 
     // Loop through the first 3 articles and display them
-    console.log(firstThreeArticles);
 
     firstThreeArticles.forEach((article) => {
       const articleElement = `
@@ -42,7 +40,6 @@ fetch("../json/layer.json")
       // Append the article to the grid container
       document.querySelector("#latestArticles").innerHTML += articleElement;
     });
-    console.log(document.querySelector("#latestArticles"));
     // Attach event listeners to all read buttons
     document.querySelectorAll(".read-button").forEach((button) => {
       button.addEventListener("click", function () {

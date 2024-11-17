@@ -39,16 +39,13 @@
     <meta name="msapplication-TileColor" content="{{ __('ffffff') }}">
     <meta name="theme-color" content="{{ __('ffffff') }}">
 
-    <!-- libraries -->
-    @vite(['resources/css/dashboard.css', 'resources/js/dashboard.js'])
-
-    @yield('styles')
+    @yield('header')
 
   </head>
 
   <body class="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
 
-    @yield('content')
+    @yield('page')
 
   </body>
 
