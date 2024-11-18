@@ -50,8 +50,8 @@ class Article extends Model {
     return $this->hasMany(Comment::class);
   }
 
-  public function events() {
-    return $this->hasMany(Event::class);
+  public function event() {
+    return $this->hasOne(Event::class);
   }
 
   public function tags_text($tags) {

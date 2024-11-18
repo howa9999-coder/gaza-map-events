@@ -11,7 +11,7 @@ return new class extends Migration {
       $table->id();
       $table->string("title");
       $table->json("shapes"); // the json file of shapes
-      $table->tinyInteger("type");
+      // $table->tinyInteger("type");
       $table->timestamp("date");
       $table->foreignId("source_id")->nullable(); // references sourcs like (aljazera) from sources table
       $table->foreignId("article_id")->nullable()->references("id")->on("articles")->onDelete("cascade");

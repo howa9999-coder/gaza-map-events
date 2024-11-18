@@ -10,6 +10,7 @@ use App\Models\Comment;
 use Str;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller {
 
@@ -34,7 +35,16 @@ class ArticleController extends Controller {
       "tags" => "nullable|string",
       "image" => "required|image|mimes:png,jpg,jpeg|max:2048", // max = 2 mega byte
       "content" => "required",
+      "event_title" => "nullable|string|max:80",
+      "event_date" => "nullable|date",
+      "shapes" => "nullable|json",
     ]);
+
+    Validator::make($request->all(), [
+      "event_title" => Rule::requiredIf(!empty(request("event_date")) || !empty("shapes")),
+      "event_date" => Rule::requiredIf(!empty(request("shapes")) || !empty("event_title")),
+      "shapes" => Rule::requiredIf(!empty(request("event_date")) || !empty("event_title")),
+    ])->validate();
 
     $tags = array_map(function ($item) {
       $item = trim($item);
@@ -58,6 +68,14 @@ class ArticleController extends Controller {
     }
 
     $article = Article::create($info);
+
+    if (!empty(request("event_title"))) {
+      $article->event()->create([
+        "title" => request("event_title"),
+        "date" => request("event_date"),
+        "shapes" => request("shapes")
+      ]);
+    }
 
     $tags_ids = Tag::whereIn('title', $tags)->pluck('id', 'title')->all();
 
@@ -110,6 +128,7 @@ class ArticleController extends Controller {
 
   public function edit(Article $article) {
     $categories = Category::all();
+    $article->load("event");
     return view('dashboard.articles.single', compact("article", "categories"));
   }
 
@@ -122,7 +141,16 @@ class ArticleController extends Controller {
       "category" => "nullable|integer|exists:categories,id",
       "tags" => "nullable|string",
       "image" => "nullable|image|mimes:png,jpg,jpeg|max:2048", // max = 2 mega byte
+      "event_title" => "nullable|string|max:80",
+      "event_date" => "nullable|date",
+      "shapes" => "nullable|json",
     ]);
+
+    Validator::make($request->all(), [
+      "event_title" => Rule::requiredIf(!empty(request("event_date")) || !empty("shapes")),
+      "event_date" => Rule::requiredIf(!empty(request("shapes")) || !empty("event_title")),
+      "shapes" => Rule::requiredIf(!empty(request("event_date")) || !empty("event_title")),
+    ])->validate();
 
     $tags = array_map(function ($item) {
       $item = trim($item);
@@ -169,7 +197,24 @@ class ArticleController extends Controller {
       $request->image->move(public_path('images/articles'), $article->image);
     }
 
+    if (!empty(request("event_title")) || !empty(request("event_date")) || !empty(request("shapes"))) {
+      if ($article->event) {
+
+        $article->event->title = request("event_title");
+        $article->event->date = request("event_date");
+        $article->event->shapes = request("shapes");
+        $article->event->save();
+      } else {
+        $article->event()->create([
+          "title" => request("event_title"),
+          "date" => request("event_date"),
+          "shapes" => request("shapes")
+        ]);
+      }
+    }
+
     $res = $article->save();
+
     $request->session()->flash('article-saved', $res);
 
     return redirect()->route("articles_manage", $article->id);

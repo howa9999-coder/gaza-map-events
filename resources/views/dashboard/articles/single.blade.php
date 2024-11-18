@@ -12,7 +12,6 @@
 @endsection
 
 @section('content')
-
   <div class="container mt-4">
     <form id="form" method="POST"
       action="{{ isset($article->id) ? route('article_edit', $article->id) : route('article_create') }}"
@@ -202,10 +201,60 @@
             </div>
           </div>
         </div>
+        <div class="col-12 mt-4">
+          <div class="card card-body border-0 shadow">
+            <div class="d-flex justify-content-between align-items-center">
+              <h2 class="h4 m-0">{{ __('Event Information') }}</h2>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="event_title">{{ __('Event Title') }}</label>
+                      <input class="form-control @error('event_title') is-invalid @enderror" id="event_title"
+                        form="form" name="event_title" type="text"
+                        value="{{ old('event_title') ? old('event_title') : (isset($article?->event) ? $article?->event->title : '') }}"
+                        placeholder="{{ __('event_title shown in the map') }}">
+                      @error('event_title')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <div class="mb-3">
+                      <label for="event_date">{{ __('Event Date') }}</label>
+                      <input type="date" class="form-control @error('event_date') is-invalid @enderror"
+                        id="event_date" name="event_date" form="form"
+                        value="{{ old('event_date') != null ? old('event_date') : (isset($article?->event) ? $article?->event->date->format('Y-m-d') : '') }}" />
+                      @error('event_date')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="shapes">{{ __('Map Shapes (JSON)') }}</label>
+                  <textarea class="form-control @error('shapes') is-invalid @enderror" id="shapes" style="min-height: 280px;"
+                    form="form" name="shapes" placeholder="{{ __('map shapes JSON data') }}">{{ old('shapes') != null ? old('shapes') : (isset($article?->event) ? $article?->event->shapes : '') }}</textarea>
+                  @error('shapes')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                  @enderror
+                </div>
+              </div>
+            </div>
+            <button class="w-content btn btn-gray-800 mt-4 ms-auto w-fit px-5 animate-up-1"
+              type="submit">{{ __('Save all') }}</button>
+          </div>
+        </div>
       </div>
     </form>
   </div>
-
 @endsection
 
 @section('scripts')
@@ -350,6 +399,7 @@
           document.querySelector("#tags-input .input").value = ""
         }
       }
+
       $("#tags-input .tags").on("click", function(e) {
         if (e.target !== this) {
           return;
@@ -375,6 +425,7 @@
           }
         }
       });
+
       $("#tags").val().split(",").forEach(function(tag) {
         insertTag(tag)
       })

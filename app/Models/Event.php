@@ -12,12 +12,15 @@ class Event extends Model {
   public $fillable = [
     "title",
     "shapes",
-    "type",
     "date",
+    "type",
     "source_id",
     "article_id",
   ];
 
+  protected $casts = [
+    'date' => 'datetime'
+  ];
 
   public function article() {
     return $this->belongsTo(Article::class, "article_id");
