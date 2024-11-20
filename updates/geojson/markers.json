@@ -1,0 +1,246 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4506, 31.5000] },
+        "properties": {
+          "title": "Marker 1",
+          "description": "Description for Marker 1",
+          "link": "article.html",
+          "category": "Category A",
+          "date": "2024-01-01",
+          "author": "Author 1"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4600, 31.5100] },
+        "properties": {
+          "title": "Marker 2",
+          "description": "Description for Marker 2",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-02",
+          "author": "Author 2"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4700, 31.5200] },
+        "properties": {
+          "title": "Marker 3",
+          "description": "Description for Marker 3",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-03",
+          "author": "Author 3"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4800, 31.5300] },
+        "properties": {
+          "title": "Marker 4",
+          "description": "Description for Marker 4",
+          "link": "https://example.com/marker4",
+          "category": "Category A",
+          "date": "2024-01-04",
+          "author": "Author 4"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4900, 31.5400] },
+        "properties": {
+          "title": "Marker 5",
+          "description": "Description for Marker 5",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-05",
+          "author": "Author 5"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4500, 31.5500] },
+        "properties": {
+          "title": "Marker 6",
+          "description": "Description for Marker 6",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-06",
+          "author": "Author 6"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4600, 31.5600] },
+        "properties": {
+          "title": "Marker 7",
+          "description": "Description for Marker 7",
+          "link": "https://example.com/marker7",
+          "category": "Category A",
+          "date": "2024-01-07",
+          "author": "Author 7"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4700, 31.5700] },
+        "properties": {
+          "title": "Marker 8",
+          "description": "Description for Marker 8",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-08",
+          "author": "Author 8"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4800, 31.5800] },
+        "properties": {
+          "title": "Marker 9",
+          "description": "Description for Marker 9",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-09",
+          "author": "Author 9"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4900, 31.5900] },
+        "properties": {
+          "title": "Marker 10",
+          "description": "Description for Marker 10",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-10",
+          "author": "Author 10"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4506, 31.5050] },
+        "properties": {
+          "title": "Marker 11",
+          "description": "Description for Marker 11",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-11",
+          "author": "Author 11"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4556, 31.5150] },
+        "properties": {
+          "title": "Marker 12",
+          "description": "Description for Marker 12",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-12",
+          "author": "Author 12"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4606, 31.5250] },
+        "properties": {
+          "title": "Marker 13",
+          "description": "Description for Marker 13",
+          "link": "article.html",
+          "category": "Category A",
+          "date": "2024-01-13",
+          "author": "Author 13"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4656, 31.5350] },
+        "properties": {
+          "title": "Marker 14",
+          "description": "Description for Marker 14",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-14",
+          "author": "Author 14"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4706, 31.5450] },
+        "properties": {
+          "title": "Marker 15",
+          "description": "Description for Marker 15",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-15",
+          "author": "Author 15"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4756, 31.5550] },
+        "properties": {
+          "title": "Marker 16",
+          "description": "Description for Marker 16",
+          "link": "article.html",
+          "category": "Category A",
+          "date": "2024-01-16",
+          "author": "Author 16"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4806, 31.5650] },
+        "properties": {
+          "title": "Marker 17",
+          "description": "Description for Marker 17",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-17",
+          "author": "Author 17"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4856, 31.5750] },
+        "properties": {
+          "title": "Marker 18",
+          "description": "Description for Marker 18",
+          "link": "article.html",
+          "category": "Category C",
+          "date": "2024-01-18",
+          "author": "Author 18"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4906, 31.5850] },
+        "properties": {
+          "title": "Marker 19",
+          "description": "Description for Marker 19",
+          "link": "article.html",
+          "category": "Category A",
+          "date": "2024-01-19",
+          "author": "Author 19"
+        }
+      },
+      {
+        "type": "Feature",
+        "geometry": { "type": "Point", "coordinates": [34.4956, 31.5950] },
+        "properties": {
+          "title": "Marker 20",
+          "description": "Description for Marker 20",
+          "link": "article.html",
+          "category": "Category B",
+          "date": "2024-01-20",
+          "author": "Author 20"
+        }
+      }
+    ]
+  }
+  
