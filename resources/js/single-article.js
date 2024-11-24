@@ -1,3 +1,10 @@
+$(function () {
+  $("#overlay").click(function () {
+    $(this).css("transition", "none");
+    $(this).fadeOut(600);
+  });
+});
+
 const map = L.map("map").setView([31.5, 34.47], 12); // Centering map on Gaza Strip
 
 // Add scalebar to map
@@ -160,14 +167,12 @@ if (markerBounds.length > 0) {
 // After all markers have been created, add the layer group to the map
 markerLayerGroup.addTo(map);
 
-// Full screen
 const fullScreenButton = document.querySelector(".screen-button");
-const mapContainer = document.getElementById("map");
+const mapContainer = document.getElementById("mapLayer");
 
 // Function to toggle fullscreen mode
-mapContainer.addEventListener("dblclick", function (e) {
-  e.preventDefault();
-  e.stopPropagation();
+function toggleFullScreen() {
+  console.log("first");
   if (!document.fullscreenElement) {
     if (mapContainer.requestFullscreen) {
       mapContainer.requestFullscreen();
@@ -195,4 +200,7 @@ mapContainer.addEventListener("dblclick", function (e) {
       document.msExitFullscreen();
     }
   }
-});
+}
+
+// Add click event to the button
+fullScreenButton.addEventListener("click", toggleFullScreen);

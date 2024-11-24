@@ -10,6 +10,13 @@ use App\Models\Rate;
 class Comment extends Model {
   //
 
+  public $fillable = [
+    "article_id",
+    "user_id",
+    "text",
+    "reply_on",
+  ];
+
   public function user() {
     return $this->belongsTo(User::class);
   }

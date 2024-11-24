@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 
 // Debugbar::addMeasure("now", LARAVEL_START, microtime(true));
@@ -15,8 +16,11 @@ use App\Http\Controllers\PageController;
 
 Route::get("/", [PageController::class, "home"])->name("home");
 Route::get("/article/{article:slug}", [ArticleController::class, "show"])->name("article_show");
+Route::POST("/comments/{article}", [CommentController::class, "store"])->name("article_comments");
 Route::get("/articles", [PageController::class, "articles"])->name("articles_page");
+Route::get("/buycut", [PageController::class, "buycut"])->name("buycut_page");
 Route::get("/map", [PageController::class, "map"])->name("map_page");
+Route::view("/contact", "contact")->name("contact");
 
 Route::prefix("/dashboard")->middleware("auth")->group(function () {
   Route::view("/", "dashboard")->name("dashboard");

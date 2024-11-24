@@ -1,27 +1,30 @@
-<header class="bg-white shadow-lg fixed top-0 left-0  w-full z-50">
-  <nav class="flex justify-between items-center w-[92%] mx-auto">
-    <div>
-      <h1 class="text-4xl md:text-5xl my-5">
-        Gaza Events
-      </h1>
+<header id="navbar" class="fixed w-full bg-transparent transition-colors duration-300 z-50 top-0">
+  <div class="flex items-center bg-black justify-between px-6 py-4">
+
+    <!-- Logo Name -->
+    <div class="text-3xl md:text-5xl ml-10 text-white">Gaza Events</div>
+    <div class="flex">
+      <!-- Contact Us Icon -->
+      <div class="pr-6">
+        <a href="/contact" class="text-white md:text-2xl text-xl hover:text-gray-600">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+      <!-- Menu Icon -->
+      <div class="flex items-center">
+        <button id="menu-toggle" class="text-white md:text-2xl text-xl hover:text-gray-600 focus:outline-none"
+          aria-expanded="false"><i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
-    <div
-      class="nav-links transition-all duration-500 md:static absolute bg-white md:min-h-fit min-h-[60vh] left-0 top-[-1000%] md:w-auto w-full flex items-center px-5">
-      <ul class="flex md:flex-row flex-col mx-auto md:items-center md:gap-[4vw] gap-8">
-        <li>
-          <a class="hover:text-gray-500" href="/">Home</a>
-        </li>
-        <li>
-          <a class="hover:text-gray-500" href="/articles">Articles</a>
-        </li>
-        <li>
-          <a class="hover:text-gray-500" href="/contact">Contact us</a>
-        </li>
-      </ul>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="/map" class="text-white px-5 py-2 rounded-full  bg-green-500 hover:bg-[#87ec9f]">Map</a>
-      <ion-icon name="menu" id="onToggleMenu" class="text-3xl cursor-pointer md:hidden"></ion-icon>
-    </div>
+
+  </div>
+  <!-- Dropdown Menu -->
+  <nav id="menu-content"
+    class="flex flex-col justify-center items-center top-0 bg-gray-100 left-0 w-full h-screen text-gray-800 shadow-lg py-4 px-6 hidden">
+    <a href="/" class="text-2xl py-2 hover:text-blue-500">Home</a>
+    <a href="{{ route('articles_page') }}" class="text-2xl py-2 hover:text-blue-500">Blog</a>
+    <a href="{{ route('buycut_page') }}" class="text-2xl py-2 hover:text-blue-500">Boycott</a>
+    <a href="{{ route('contact') }}" class="text-2xl py-2 hover:text-blue-500">Contact</a>
   </nav>
 </header>

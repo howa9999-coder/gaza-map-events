@@ -25,18 +25,18 @@ class CommentController extends Controller {
   public function store(Request $request, Article $article) {
     $request->validate([
       "comment" => "required|string|max:255",
-      "reply" => "nullable|integer|exists:comments,id",
+      "reply" => "sometimes|nullable|integer|exists:comments,id",
     ]);
 
     if (!auth()->check()) {
       $request->validate([
-        'username' => ['required', 'string', 'max:255', "unique:users,username"],
+        'name' => ['required', 'string', 'max:255', "unique:users,name"],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
         'password' => ['required', "min:3"],
       ]);
 
       $user = User::create([
-        'username' => $request->username,
+        'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
       ]);
@@ -55,12 +55,7 @@ class CommentController extends Controller {
       "text" => request("comment")
     ]);
 
-    return ["done" => boolval($user->id && $res), "comment" => [
-      "id" => $res->id,
-      "fullname" => $res->user->fullname(),
-      "user_image" => $res->user->image_url(),
-      "date" => $res->created_at->format("Y-m-d h:ma"),
-    ]];
+    return redirect()->route("article_show", $article->slug);
   }
 
   public function report(Request $request, Comment $comment) {
@@ -107,7 +102,7 @@ class CommentController extends Controller {
       $next_comment = [
         "id" => $next_comment->id,
         "text" => $next_comment->text,
-        "username" => $next_comment->user->username,
+        "name" => $next_comment->user->name,
         "image" => $next_comment->user->image_url(),
         "response_to" => $next_comment->response_to(),
         "created_at" => $next_comment->created_at->format("Y-m-d ga"),

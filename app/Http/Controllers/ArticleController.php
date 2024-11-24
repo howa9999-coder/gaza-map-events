@@ -118,10 +118,10 @@ class ArticleController extends Controller {
   }
 
   public function show(Article $article) {
-    // $article = Article::where('id', $article_id)->where('status', ">", 0)->withTranslation()->first();
     if ($article->status > 0) {
       $comments = Comment::where("article_id", $article->id)->with("replys")->with("replys.user")->orderBy("created_at", "DESC")->limit(20)->get();
-      return view('single-article', compact("article", "comments"));
+      $similler_articles = Article::inRandomOrder()->limit(3)->get();
+      return view('single-article', compact("article", "similler_articles", "comments"));
     }
     abort(404);
   }
