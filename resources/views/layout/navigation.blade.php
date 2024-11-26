@@ -2,7 +2,9 @@
   <div class="flex items-center bg-black justify-between px-6 py-4">
 
     <!-- Logo Name -->
-    <div class="text-3xl md:text-5xl ml-10 text-white">Gaza Events</div>
+    <a href="/">
+      <div class="text-3xl md:text-5xl ml-10 text-white">Gaza Events</div>
+    </a>
     <div class="flex">
       <!-- Contact Us Icon -->
       <div class="pr-6">

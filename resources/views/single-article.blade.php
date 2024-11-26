@@ -40,36 +40,31 @@
     </div>
   </div>
 
-  <!--Sources-->
-  <div class="bg-white p-6 rounded-lg shadow-lg max-w-4xl  mx-auto my-6">
-    <h2 class="text-2xl font-semibold text-blue-600 mb-4">Information & Resources</h2>
+  <!-- Search Bar -->
+  <div class="w-full py-3">
+    <div class="p-4 bg-gray-100">
+      <form>
+        <div class="flex flex-col gap-4 md:flex-row md:items-center">
+          <div class="flex-grow">
+            <input type="text" id="search" placeholder="Search..." name="search"
+              class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+          </div>
 
-    <p class=" text-gray-700 mb-4">
-      This section provides valuable resources and further reading to enhance your understanding of the topic
-      discussed in the article. Here, you'll find links, references, and additional materials that can help deepen
-      your knowledge.
-    </p>
+          <div class="flex-grow md:w-1/4">
+            <select name="category"
+              class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+              <option value="">Select a category</option>
+              @foreach ($categories as $cat)
+                <option value="{{ $cat->id }}">{{ $cat->title }}</option>
+              @endforeach
+            </select>
+          </div>
 
-    <!-- Additional Content that will be toggled -->
-    <div id="extraContent" class=" text-gray-700 mb-4 hidden">
-      <p>
-        Here is some additional information that provides more details on the topic, including in-depth resources,
-        case studies, and practical examples. You can explore more resources on this subject, which will help you
-        deepen your knowledge further.
-      </p>
-      <ul class="list-disc pl-6 text-gray-700 my-2">
-        <li><a href="#" class="text-blue-500 hover:underline leading-4">Further Study Guide: Advanced Tailwind</a>
-        </li>
-        <li><a href="#" class="text-blue-500 hover:underline leading-4">Exploring Flexbox in Depth</a></li>
-        <li><a href="#" class="text-blue-500 hover:underline leading-4">Mastering Responsive Design</a></li>
-      </ul>
+          <button type="submit"
+            class="bg-red-600 hover:bg-red-700 transition-colors rounded-md px-4 py-2 text-white">Search</button>
+        </div>
+      </form>
     </div>
-
-    <!-- Read More / Read Less Button -->
-    <button id="toggleBtn" class="text-gray-500 mt-4">
-      <span id="read-text">Read More</span>
-      <i id="read-icon" class="fa-solid fa-caret-down"></i>
-    </button>
   </div>
 
   <!--Suggestion-->
@@ -86,7 +81,7 @@
             <a href="{{ route('article_show', $art->slug) }}">
               <img
                 class="max-w-full w-full mx-auto aspect-[1.5] object-cover object-center hover:scale-105 hover:shadow-md border border-black border-opacity-0 hover:border-opacity-15 shadow transition-all duration-500"
-                src="{{ $art->image_url() }}" alt="alt title">
+                src="{{ $art->image_url() }}" alt="{{ $art->title }}">
             </a>
             <div class="py-0 sm:py-3 pl-3 sm:pl-0">
               <h3 class="text-lg font-bold leading-tight mb-2">
@@ -116,7 +111,8 @@
         <div class="mt-4">
           @foreach ($comments as $comment)
             <div class="border-b pb-4 mb-4 flex items-start">
-              <img src="{{ $comment->user->image }}" alt="User1" class="rounded-full mr-4">
+              <img src="{{ $comment->user->image_url() }}" alt="{{ $comment->user->name }}"
+                class="rounded-full mr-4 w-14 object-cover h-full aspect-square">
               <div class="flex-1">
                 <div class="flex justify-between">
                   <div>
@@ -137,7 +133,8 @@
                   <div class="ml-6 mt-2 border-l pl-4">
                     @foreach ($comment->replys as $reply)
                       <div class="flex items-start">
-                        <img src="{{ $reply->user->image }}" alt="{{ $reply->user->name }}" class="rounded-full mr-4">
+                        <img src="{{ $reply->user->image_url() }}" alt="{{ $reply->user->name }}"
+                          class="rounded-full mr-4 w-14 object-cover h-full aspect-square">
                         <div class="flex-1">
                           <div class="flex justify-between">
                             <div>
@@ -159,7 +156,7 @@
               </div>
             </div>
           @endforeach
-          <div class="border-b pb-4 mb-4 flex items-start">
+          {{-- <div class="border-b pb-4 mb-4 flex items-start">
             <img src="https://via.placeholder.com/40" alt="User2" class="rounded-full mr-4">
             <div class="flex-1">
               <div class="flex justify-between">
@@ -176,7 +173,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --}}
         </div>
 
         <!-- Add New Comment -->

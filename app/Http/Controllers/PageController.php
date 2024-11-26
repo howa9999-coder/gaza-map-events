@@ -20,11 +20,6 @@ class PageController extends Controller {
     return view("articles", compact("articles", "categories"));
   }
 
-  public function buycut() {
-    $articles = Article::orderBy("articles.created_at", "desc")->paginate(10);
-    $categories = Category::all();
-    return view("articles", compact("articles", "categories"));
-  }
 
   public function map() {
     $events = Event::with("article")->get();

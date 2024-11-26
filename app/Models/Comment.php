@@ -22,7 +22,7 @@ class Comment extends Model {
   }
 
   public function replys() {
-    return $this->belongsTo(Comment::class, "reply_on");
+    return $this->hasMany(self::class, "reply_on", "id");
   }
 
   public function likes() {

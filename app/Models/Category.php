@@ -21,15 +21,15 @@ class Category extends Model {
     'description',
     'image',
     'order',
-    'is_product_category'
+    'is_buycut_category'
   ];
 
   public function articles() {
     return $this->hasMany(Article::class);
   }
 
-  public function products() {
-    return $this->hasMany(Product::class);
+  public function buycuts() {
+    return $this->hasMany(Buycut::class);
   }
 
   public function show_date() {
@@ -46,6 +46,14 @@ class Category extends Model {
 
   public function scopeMostUsed(Builder $query): void {
     $query->withCount("articles")->orderBy("articles_count");
+  }
+
+  public function scopeIsArticleCategory(Builder $query): void {
+    $query->where("is_buycut_category", "0");
+  }
+
+  public function scopeIsBuycutCategory(Builder $query): void {
+    $query->where("is_buycut_category", "1");
   }
 
   public function get_link() {

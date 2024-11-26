@@ -28,8 +28,8 @@
       <img src="src/img/products/McDonald.png" alt="${product.name}"
         class="w-16 h-16 rounded-full cursor-pointer hover:scale-110 transition-transform duration-300 ease-in-out">
     </button>
-    <button id="see-more-btn" class="mt-4 inline-block cursor-pointer bg-transparent border-none text-blue-500">
+    <a href="/buycut" class="mt-4 inline-block cursor-pointer bg-transparent border-none text-blue-500">
       See More
-    </button>
+    </a>
   </div>
 </div>
