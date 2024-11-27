@@ -52,7 +52,6 @@
 
 .navigation .toggle.active::before {
   transform: rotate(300deg);
-  content: "Boycott";
 }
 
 /*Sources*/

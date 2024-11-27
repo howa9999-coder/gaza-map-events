@@ -2,15 +2,12 @@
 
 @section('content')
   <div class="bg-white py-6">
-
     <div class="xl:container mx-auto px-3 sm:px-4 xl:px-2">
       <div class="flex flex-row flex-wrap">
         <div class="flex-shrink max-w-full w-full overflow-hidden">
           <div class="w-full py-3">
             <div class="p-4 bg-gray-100">
               <div class="flex flex-col gap-4 md:flex-row md:items-center">
-
-
 
                 <!-- Search Bar -->
                 <div class="w-full py-3">
@@ -38,7 +35,6 @@
                     </form>
                   </div>
                 </div>
-
 
               </div>
             </div>

@@ -51,6 +51,7 @@
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 
     @vite(['resources/js/main.js'])
+    @vite(['resources/js/navigation.js'])
     @yield('scripts')
 
   </body>

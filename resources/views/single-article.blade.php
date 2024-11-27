@@ -40,32 +40,6 @@
     </div>
   </div>
 
-  <!-- Search Bar -->
-  <div class="w-full py-3">
-    <div class="p-4 bg-gray-100">
-      <form>
-        <div class="flex flex-col gap-4 md:flex-row md:items-center">
-          <div class="flex-grow">
-            <input type="text" id="search" placeholder="Search..." name="search"
-              class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
-          </div>
-
-          <div class="flex-grow md:w-1/4">
-            <select name="category"
-              class="w-full px-4 py-2 border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Select a category</option>
-              @foreach ($categories as $cat)
-                <option value="{{ $cat->id }}">{{ $cat->title }}</option>
-              @endforeach
-            </select>
-          </div>
-
-          <button type="submit"
-            class="bg-red-600 hover:bg-red-700 transition-colors rounded-md px-4 py-2 text-white">Search</button>
-        </div>
-      </form>
-    </div>
-  </div>
 
   <!--Suggestion-->
   <div class="lg:container mt-8 mx-auto">
@@ -196,8 +170,7 @@
               <div class="flex gap-4 md:flex-row flex-col mb-3">
                 <input value="{{ old('email') }}" type="email" name="email" class="w-full border p-2 mt-2"
                   placeholder="email" />
-                <input value="{{ old('name') }}" name="name" class="w-full border p-2 mt-2"
-                  placeholder="name" />
+                <input value="{{ old('name') }}" name="name" class="w-full border p-2 mt-2" placeholder="name" />
                 <input value="{{ old('password') }}" name="password" type="password" class="w-full border p-2 mt-2"
                   placeholder="password" />
               </div>

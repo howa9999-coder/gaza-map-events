@@ -13,6 +13,7 @@ return new class extends Migration {
       $table->text("reason")->nullable();
       $table->text("details")->nullable();
       $table->string("video")->nullable();
+      $table->string("logo")->nullable();
       $table->string("images")->nullable();
       $table->timestamps();
     });

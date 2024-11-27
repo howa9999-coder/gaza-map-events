@@ -1,49 +1,52 @@
-const navigation = document.querySelector(".navigation");
+const navigation = document.getElementById("navigation");
 
-document.querySelector(".toggle").ondblclick = function () {
+navigation.querySelector(".toggle").addEventListener("click", function () {
   this.classList.toggle("active");
   navigation.classList.toggle("active");
-};
+});
 
 $(function () {
-  let isFixed = false; // Track if the navigation is fixed
+  let position;
+  const screen = document.body.getBoundingClientRect();
 
-  $(".navigation").draggable({
-    stop: function (event, ui) {
-      const position = $(this).position();
-      if (position.top < 0 || position.left < 0) {
-        $(this).css({
-          top: "10%",
-          right: "20px",
-        });
-      }
-      // Update isFixed status based on the position of the navigation
-      isFixed = ui.position.top <= 10; // Set isFixed if dragged near the top
-    },
+  if (localStorage.getItem("draggableBuycut")) {
+    position = JSON.parse(localStorage.getItem("draggableBuycut"));
+  }
+
+  if (
+    position.top < 0 ||
+    position.left < 0 ||
+    screen.width < position.left ||
+    screen.height < position.top
+  ) {
+    position.top = "10%";
+    position.left = "20px";
+  }
+
+  $("#navigation").css({
+    top: position?.top ?? "10%",
+    left: position?.left ?? "20px",
   });
+  console.log(position);
+  $("#navigation").draggable({
+    stop: function (event, ui) {
+      const screen = document.body.getBoundingClientRect();
+      const position = $(this).position();
 
-  $(window).scroll(function () {
-    const scrollTop = $(this).scrollTop();
-    const navPosition = $(".navigation").position();
-
-    // Check if the navigation should become fixed
-    if (scrollTop > navPosition.top && !isFixed) {
-      isFixed = true;
-      $(".navigation").css({
-        position: "fixed",
-        top: "10px",
-        left: navPosition.left,
+      if (
+        position.top < 0 ||
+        position.left < 0 ||
+        screen.width < position.left ||
+        screen.height < position.top
+      ) {
+        position.top = "10%";
+        position.left = "20px";
+      }
+      $(this).css({
+        top: position.top,
+        left: position.left,
       });
-    }
-
-    // Check if the navigation should go back to its original position
-    if (scrollTop < navPosition.top && isFixed) {
-      isFixed = false;
-      $(".navigation").css({
-        position: "absolute",
-        top: navPosition.top,
-        left: navPosition.left,
-      });
-    }
+      localStorage.setItem("draggableBuycut", JSON.stringify(position));
+    },
   });
 });
