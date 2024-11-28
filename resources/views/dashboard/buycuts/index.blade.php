@@ -2,7 +2,7 @@
 
 @section('meta')
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  @php $page_title = config("app.name") . " | " . __('Articles') @endphp
+  @php $page_title = config("app.name") . " | " . __('Buycuts') @endphp
 @endsection
 
 @section('styles')
@@ -13,20 +13,17 @@
   <div class="container">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
       <div class="d-block mb-4 mb-md-0">
-        <x-breadcrumb page="articles" is-route=1 url="articles_manage" />
-        <h2 class="h4">{{ __('All Articles') }}</h2>
-        <p class="mb-0">{{ __('manage articles and posts from one place.') }}</p>
+        <x-breadcrumb page="buycuts" is-route=1 url="buycuts_manage" />
+        <h2 class="h4">{{ __('All Buycuts') }}</h2>
+        <p class="mb-0">{{ __('manage buycuts and posts from one place.') }}</p>
       </div>
       <div class="btn-toolbar mb-2 mb-md-0">
-        {{-- <div class="btn-group me-2 me-lg-3">
-          <button type="button" class="btn btn-sm btn-outline-gray-600">{{ __('Export') }}</button>
-        </div> --}}
-        <a href="{{ route('article_create') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+        <a href="{{ route('buycut_create') }}" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
           <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
           </svg>
-          {{ __('New Article') }}
+          {{ __('New Buycut') }}
         </a>
       </div>
     </div>
@@ -51,39 +48,34 @@
       <table class="table table-hover" id="articles-table">
         <thead>
           <tr>
-            <th class="border-gray-200">{{ __('Image') }}</th>
+            <th class="border-gray-200">{{ __('Logo') }}</th>
             <th class="border-gray-200">{{ __('Title') }}</th>
-            <th class="border-gray-200">{{ __('Category') }}</th>
-            <th class="border-gray-200">{{ __('Comments') }}</th>
-            <th class="border-gray-200">{{ __('Status') }}</th>
+            <th class="border-gray-200">{{ __('Reason') }}</th>
             <th class="border-gray-200">{{ __('Publish Date') }}</th>
             <th class="border-gray-200">{{ __('Action') }}</th>
           </tr>
         </thead>
         <tbody>
-          @foreach ($articles as $article)
+          @foreach ($buycuts as $buycut)
             <!-- Item -->
-            <tr class="fw-normal article-row" id="article-{{ $article->id }}" data-id="{{ $article->id }}">
+            <tr class="fw-normal article-row" id="buycut-{{ $buycut->id }}" data-id="{{ $buycut->id }}">
               <td class="p-1" style="vertical-align: middle">
-                <a href="{{ route('article_edit', $article->id) }}">
+                <a href="{{ route('article_edit', $buycut->id) }}">
                   <img style="max-height: 100px; max-width: 166px;width:100%;object-fit: cover"
-                    class="rounded-1 profile-pick" src="{{ $article->image_url() }}" alt="">
+                    class="rounded-1 profile-pick" src="{{ $buycut->logo_url() }}" alt="">
                 </a>
               </td>
               <td class="text-end-dots pe-0 wrap">
-                <a href="{{ route('article_edit', $article->id) }}">{{ $article->title }}</a>
+                <a href="{{ route('article_edit', $buycut->id) }}">{{ $buycut->title }}</a>
               </td>
-              <td title="{{ $article->category?->title }}" class="wrap">
-                @if (isset($article->category->id))
-                  <a
-                    href="{{ route('category_edit', $article->category->id) }}">{{ strlen($article->category->title) > 30 ? substr($article->category->title, 0, 30) . '...' : $article->category->title }}</a>
+              <td title="{{ $buycut->category?->title }}" class="wrap">
+                @if (isset($buycut->category->id))
+                  <a href="{{ route('category_edit', $buycut->category->id) }}">{{ strlen($buycut->category->title) > 30 ? substr($buycut->category->title, 0, 30) . '...' : $buycut->category->title }}</a>
                 @else
                   - - -
                 @endif
               </td>
-              <td>{{ $article->comments()->count() }}</td>
-              <td>{{ $article->status_name() }} <span class="fa w-16px">{!! $article->status_icon() !!}</span></td>
-              <td>{{ $article->created_at->format('Y-m-d ga') }}</td>
+              <td>{{ $buycut->created_at->format('Y-m-d ga') }}</td>
               <td>
                 <div class="btn-group">
                   <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 py-0 p-2"
@@ -94,7 +86,7 @@
                     <span class="visually-hidden">{{ __('Toggle Dropdown') }}</span>
                   </button>
                   <div class="dropdown-menu py-0">
-                    <a class="dropdown-item" href="{{ route('article_edit', $article->id) }}">
+                    <a class="dropdown-item" href="{{ route('article_edit', $buycut->id) }}">
                       <span class="fa me-1">
                         <svg class="me-2" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor"
                           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -107,7 +99,7 @@
                     </a>
                     <hr class="my-0">
                     <button class="dropdown-item text-danger rounded-bottom delete-btn"
-                      id="article-{{ $article->id }}-delete" data-id="{{ $article->id }}">
+                      id="article-{{ $buycut->id }}-delete" data-id="{{ $buycut->id }}">
                       <span class="fa me-2">
                         <svg class="me-2" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor"
                           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -126,7 +118,7 @@
         </tbody>
       </table>
       <div class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
-        {!! $articles->links() !!}
+        {!! $buycuts->links() !!}
       </div>
     </div>
   </div>

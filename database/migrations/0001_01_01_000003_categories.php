@@ -15,7 +15,6 @@ return new class extends Migration {
         $table->string('title');
         $table->string('description')->nullable();
       }
-      $table->tinyInteger("order")->nullable();
       // $table->string("slug")->nullable();
       $table->boolean("is_buycut_category")->default(false);
       $table->string("image")->nullable();

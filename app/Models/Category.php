@@ -19,8 +19,6 @@ class Category extends Model {
   protected $fillable = [
     'title',
     'description',
-    'image',
-    'order',
     'is_buycut_category'
   ];
 

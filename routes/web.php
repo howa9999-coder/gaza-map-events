@@ -19,7 +19,7 @@ Route::get("/", [PageController::class, "home"])->name("home");
 Route::get("/article/{article:slug}", [ArticleController::class, "show"])->name("article_show");
 Route::POST("/comments/{article}", [CommentController::class, "store"])->name("article_comments");
 Route::get("/articles", [PageController::class, "articles"])->name("articles_page");
-Route::get("/buycut", [BuycutController::class, "index"])->name("buycut_page");
+Route::get("/buycut", [PageController::class, "index"])->name("buycut_page");
 Route::get("/buycut/{buycut}", [BuycutController::class, "show"])->name("buycut_show");
 Route::get("/map", [PageController::class, "map"])->name("map_page");
 Route::view("/contact", "contact")->name("contact");
@@ -50,6 +50,14 @@ Route::prefix("/dashboard")->middleware("auth")->group(function () {
     Route::get("/{category}", [CategoryController::class, "edit"])->name("category_edit");
     Route::POST("/{category}", [CategoryController::class, "update"]);
     Route::DELETE("/{category}", [CategoryController::class, "destroy"]);
+  });
+  Route::prefix("/buycuts")->group(function () {
+    Route::get("/", [BuycutController::class, "index"])->name("buycuts_manage");
+    Route::get("/create", [BuycutController::class, "create"])->name("buycut_create");
+    Route::POST("/create", [BuycutController::class, "store"]);
+    Route::get("/{buycut}", [BuycutController::class, "edit"])->name("buycut_edit");
+    Route::POST("/{buycut}", [BuycutController::class, "update"]);
+    Route::DELETE("/{buycut}", [BuycutController::class, "destroy"]);
   });
 });
 

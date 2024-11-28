@@ -76,9 +76,7 @@
       <table class="table table-hover" id="categories-table">
         <thead>
           <tr>
-            <th class="border-gray-200">{{ __('Image') }}</th>
             <th class="border-gray-200">{{ __('Title') }}</th>
-            <th class="border-gray-200">{{ __('Order') }}</th>
             <th class="border-gray-200">{{ __('Action') }}</th>
           </tr>
         </thead>
@@ -86,17 +84,8 @@
           @foreach ($categories as $category)
             <!-- Item -->
             <tr class="fw-normal category-row" id="category-{{ $category->id }}" data-id="{{ $category->id }}">
-              <td class="p-1">
-                <a href="{{ route('category_edit', $category->id) }}">
-                  <img class="ms-3 rounded-1 profile-pick" src="{{ $category->image_url() }}"
-                    alt="{{ __('category image') }}">
-                </a>
-              </td>
               <td class="wrap">
                 <a href="{{ route('category_edit', $category->id) }}">{{ $category->title }}</a>
-              </td>
-              <td class="ps-5">
-                <a href="{{ route('category_edit', $category->id) }}">{{ $category->order }}</a>
               </td>
               <td>
                 <div class="btn-group">

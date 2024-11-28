@@ -1,8 +1,25 @@
-const navigation = document.getElementById("navigation");
+const toggleElement = document.querySelector(".toggle");
+const navigation = document.querySelector(".navigation");
 
-navigation.querySelector(".toggle").addEventListener("click", function () {
+function toggleClass() {
+  toggleElement.classList.toggle("active");
+  navigation.classList.toggle("active");
+}
+
+toggleElement.addEventListener("click", function () {
   this.classList.toggle("active");
   navigation.classList.toggle("active");
+});
+
+let lastTouchTime = 0;
+toggleElement.addEventListener("touchstart", function (e) {
+  const currentTime = new Date().getTime();
+
+  // Check if the touch event is occurring within 300ms of the last one (simulating double-tap)
+  if (currentTime - lastTouchTime < 300) {
+    toggleClass();
+  }
+  lastTouchTime = currentTime;
 });
 
 $(function () {
@@ -27,7 +44,7 @@ $(function () {
     top: position?.top ?? "10%",
     left: position?.left ?? "20px",
   });
-  console.log(position);
+
   $("#navigation").draggable({
     stop: function (event, ui) {
       const screen = document.body.getBoundingClientRect();

@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 .navigation {
-  position: absolute; /* Change to absolute */
   top: 80px; /* Align it with the top of the map */
   left: 0; /* Align to the left side */
   width: 50px;
