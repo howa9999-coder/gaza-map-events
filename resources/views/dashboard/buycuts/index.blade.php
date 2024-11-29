@@ -6,7 +6,7 @@
 @endsection
 
 @section('styles')
-  @vite('resources/css/dashboard/style.css')
+  @vite('resources/css/dashboard.css')
 @endsection
 
 @section('content')
@@ -39,13 +39,13 @@
                   clip-rule="evenodd"></path>
               </svg>
             </span>
-            <input type="text" class="form-control" placeholder="{{ __('Search Articles') }}">
+            <input type="text" class="form-control" placeholder="{{ __('Search Buycutss') }}">
           </div>
         </div>
       </div>
     </div>
     <div class="card card-body border-0 shadow table-wrapper table-responsive overflow-visible">
-      <table class="table table-hover" id="articles-table">
+      <table class="table table-hover" id="buycutss-table">
         <thead>
           <tr>
             <th class="border-gray-200">{{ __('Logo') }}</th>
@@ -60,13 +60,13 @@
             <!-- Item -->
             <tr class="fw-normal article-row" id="buycut-{{ $buycut->id }}" data-id="{{ $buycut->id }}">
               <td class="p-1" style="vertical-align: middle">
-                <a href="{{ route('article_edit', $buycut->id) }}">
+                <a href="{{ route('buycut_edit', $buycut->id) }}">
                   <img style="max-height: 100px; max-width: 166px;width:100%;object-fit: cover"
                     class="rounded-1 profile-pick" src="{{ $buycut->logo_url() }}" alt="">
                 </a>
               </td>
               <td class="text-end-dots pe-0 wrap">
-                <a href="{{ route('article_edit', $buycut->id) }}">{{ $buycut->title }}</a>
+                <a href="{{ route('buycut_edit', $buycut->id) }}">{{ $buycut->title }}</a>
               </td>
               <td title="{{ $buycut->category?->title }}" class="wrap">
                 @if (isset($buycut->category->id))
@@ -126,5 +126,5 @@
 
 
 @section('jslibs')
-  <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
 @endsection

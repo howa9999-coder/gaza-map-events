@@ -19,8 +19,8 @@ Route::get("/", [PageController::class, "home"])->name("home");
 Route::get("/article/{article:slug}", [ArticleController::class, "show"])->name("article_show");
 Route::POST("/comments/{article}", [CommentController::class, "store"])->name("article_comments");
 Route::get("/articles", [PageController::class, "articles"])->name("articles_page");
-Route::get("/buycut", [PageController::class, "index"])->name("buycut_page");
-Route::get("/buycut/{buycut}", [BuycutController::class, "show"])->name("buycut_show");
+Route::get("/buycuts", [PageController::class, "buycuts"])->name("buycut_page");
+Route::get("/buycuts/{buycut}", [BuycutController::class, "show"])->name("buycut_show");
 Route::get("/map", [PageController::class, "map"])->name("map_page");
 Route::view("/contact", "contact")->name("contact");
 
@@ -58,6 +58,7 @@ Route::prefix("/dashboard")->middleware("auth")->group(function () {
     Route::get("/{buycut}", [BuycutController::class, "edit"])->name("buycut_edit");
     Route::POST("/{buycut}", [BuycutController::class, "update"]);
     Route::DELETE("/{buycut}", [BuycutController::class, "destroy"]);
+    Route::POST('/upload-attachment', [BuycutController::class, 'upload_attachment'])->name("buycut_attachment");
   });
 });
 

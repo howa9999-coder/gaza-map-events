@@ -42,7 +42,7 @@
 
 
   <!--Suggestion-->
-  <div class="lg:container mt-8 mx-auto">
+  <div class="lg:container mt-16 mx-auto">
     <h2 class="text-4xl text-center mx-auto border-l-4 py-2 font-semibold border-b-4 w-[450px] border-red-500 mb-8">
       Recommended for You</h2>
 
@@ -93,10 +93,13 @@
                     <p class="font-bold">{{ $comment->user->name }}</p>
                     <p>{{ $comment->text }}</p>
                   </div>
-                  <div class="flex items-center">
-                    <button class="mr-2 text-blue-500">👍</button>
+                  <div class="flex items-center pe-6">
+                    {{-- 🔺🔻 --}}
+                    <button
+                      class="mr-2 text-{{ true ? 'red' : 'gray' }}-500 hover:text-{{ true ? 'red' : 'gray' }}-700 text-2xl">▲</button>
                     <span class="mr-2">{{ $comment->likes_count }}</span>
-                    <button class="mr-2 text-red-500">👎</button>
+                    <button
+                      class="mr-2 text-{{ false ? 'red' : 'gray' }}-500 hover:text-{{ false ? 'red' : 'gray' }}-700 text-2xl">▼</button>
                     <span class="mr-2">{{ $comment->dislikes_count }}</span>
                     <button class="text-gray-500">Reply</button>
                   </div>
@@ -104,7 +107,7 @@
 
                 @if ($comment->replys?->count() > 0)
                   <!-- Replies -->
-                  <div class="ml-6 mt-2 border-l pl-4">
+                  <div class="ml-6 mt-4 border-l pl-4">
                     @foreach ($comment->replys as $reply)
                       <div class="flex items-start">
                         <img src="{{ $reply->user->image_url() }}" alt="{{ $reply->user->name }}"
@@ -116,10 +119,13 @@
                               <p>{{ $reply->text }}</p>
                             </div>
                             <div class="flex items-center">
-                              <button class="mr-2 text-blue-500">👍</button>
-                              <span class="mr-2">{{ $reply->likes_count }}</span>
-                              <button class="mr-2 text-red-500">👎</button>
-                              <span class="mr-2">{{ $reply->dislikes_count }}</span>
+                              <button
+                                class="mr-2 text-{{ false ? 'red' : 'gray' }}-500 hover:text-{{ false ? 'red' : 'gray' }}-700 text-2xl">▲</button>
+                              <span class="mr-2">{{ $comment->likes_count }}</span>
+                              <button
+                                class="mr-2 text-{{ true ? 'red' : 'gray' }}-500 hover:text-{{ true ? 'red' : 'gray' }}-700 text-2xl">▼</button>
+                              <span class="mr-2">{{ $comment->dislikes_count }}</span>
+                              <button class="text-gray-500">Reply</button>
                             </div>
                           </div>
                         </div>

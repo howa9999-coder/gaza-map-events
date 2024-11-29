@@ -1,7 +1,7 @@
 @extends('dashboard.layout')
 
 @section('meta')
-  @php $page_title = config("app.name") . " | " . __('Edit Article') @endphp
+  @php $page_title = config("app.name") . " | " . __('Edit Buycut') @endphp
   <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
@@ -14,12 +14,12 @@
 @section('content')
   <div class="container mt-4">
     <form id="form" method="POST"
-      action="{{ isset($article->id) ? route('article_edit', $article->id) : route('article_create') }}">
+      action="{{ isset($buycut->id) ? route('buycut_edit', $buycut->id) : route('buycut_create') }}">
       @csrf
       <div class="row">
         <div class="col-12 col-xl-7">
           <div class="card card-body border-0 shadow mb-4">
-            <h2 class="h5 mb-4">{{ __('Article information') }}</h2>
+            <h2 class="h5 mb-4">{{ __('Buycut information') }}</h2>
             @if ($errors->any())
               <div class="alert alert-danger">
                 <ul>
@@ -32,17 +32,17 @@
             <div class="mb-3">
               <label for="title">{{ __('Title') }}</label>
               <input class="form-control @error('title') is-invalid @enderror" id="title" name="title"
-                type="text" value="{{ old('title') ?? $article->title }}"
-                placeholder="{{ __('title of the article') }}">
+                type="text" value="{{ old('title') ?? (isset($buycut) ? $buycut->title : "") }}"
+                placeholder="{{ __('title of the buycut') }}">
               @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
             <div class="mb-3">
-              <label for="desc">{{ __('Description') }}</label>
-              <textarea class="form-control @error('description') is-invalid @enderror" id="desc" style="min-height: 80px;"
-                name="description" placeholder="{{ __('a brief description about the article') }}">{{ old('description') ?? $article->description }}</textarea>
-              @error('description')
+              <label for="desc">{{ __('Reason') }}</label>
+              <textarea class="form-control @error('reason') is-invalid @enderror" id="desc" style="min-height: 80px;"
+                name="reason" placeholder="{{ __('the reason of buycut') }}">{{ old('reason') ?? isset($buycut) ? $buycut->reason : "" }}</textarea>
+              @error('reason')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
@@ -51,103 +51,13 @@
               <select class="form-select @error('category') is-invalid @enderror" id="cat" name="category">
                 <option value="">{{ __('-- select a category --') }}</option>
                 @foreach ($categories as $category)
-                  <option @if ($category->id == $article->category_id) selected @endif value="{{ $category->id }}">
+                  <option @if (isset($buycut) && $category->id == $buycut->category_id) selected @endif value="{{ $category->id }}">
                     {{ $category->title }}</option>
                 @endforeach
               </select>
               @error('category')
                 <div class="invalid-feedback">{{ $message }}</div>
               @enderror
-            </div>
-            <div class="mb-4">
-              <label for="tags">{{ __('Tags') }}</label>
-              <input type="text" class="d-none" id="tags" name="tags"
-                value="{{ $article->tags_text(old('tags')) }}">
-              <div id="tags-input" class="form-control p-0">
-                <div class="tags p-2"></div>
-                <textarea class="input" placeholder="{{ __('type tags separated with comma (,)') }}"></textarea>
-              </div>
-              @error('tags')
-                <div class="invalid-feedback">{{ $message }}</div>
-              @enderror
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <div class="mb-3">
-                    <span class="h6 fw-bold">{{ __('Comment Section:') }}</span>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" name="comment_status" type="checkbox"
-                      @if ($article->comment_status == 2) checked @endif id="commentStatus">
-                    <label class="form-check-label" id="commentStatusLabel"
-                      data-toggle="@if ($article->comment_status == 2) {{ __('Closed') }} @else {{ __('Open') }} @endif"
-                      for="commentStatus">
-                      @if ($article->comment_status == 2)
-                        {{ __('Open') }}
-                      @else
-                        {{ __('Closed') }}
-                      @endif
-                    </label>
-                  </div>
-                  @error('comment-status')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-              </div>
-              <div class="col-md-8">
-                <div class="form-group">
-                  <fieldset>
-                    <legend class="h6">{{ __('Status') }}</legend>
-                    <div class="d-flex gap-4">
-                      <input class="d-none" type="radio" name="status" id="private"
-                        @if ($article->status == 0) checked @endif value="0">
-                      <button type="button" data-target="private"
-                        class="btn btn-primary @if ($article->status == 0) active @endif status-buttons">
-                        <div calss="text-white" style="width: 22px">
-                          <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z">
-                            </path>
-                          </svg>
-                        </div>
-                      </button>
-                      <input class="d-none" type="radio" name="status" id="unlisted"
-                        @if ($article->status == 1) checked @endif value="1">
-                      <button type="button" data-target="unlisted"
-                        class="btn btn-warning @if ($article->status == 1) active @endif status-buttons">
-                        <div calss="text-white" style="width: 22px">
-                          <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244">
-                            </path>
-                          </svg>
-                        </div>
-                      </button>
-                      <input class="d-none" type="radio" name="status" id="public"
-                        @if ($article->status == 2) checked @endif value="2">
-                      <button type="button" data-target="public"
-                        class="btn btn-info @if ($article->status == 2) active @endif status-buttons">
-                        <div calss="text-white" style="width: 22px">
-                          <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5"
-                            stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                            aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418">
-                            </path>
-                          </svg>
-                        </div>
-                      </button>
-                    </div>
-                  </fieldset>
-                  @error('status')
-                    <div class="text-danger">{{ $message }}</div>
-                  @enderror
-                </div>
-              </div>
             </div>
             <hr>
             <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">{{ __('Save all') }}</button>
@@ -159,13 +69,13 @@
               <div class="card shadow border-0 text-center p-0">
                 <div class="card-body pb-5">
                   <p class="lead mb-0 mt-2" style="font-size: 1rem;">{{ __('max file size 2MB') }}</p>
-                  <img src="{{ $article->image_url() }}" id="articleImagePreview"
-                    class="rounded mx-auto m-0 article-thumbnail" alt="{{ __('Article Image') }}">
+                  <img src="{{ isset($buycut) ? $buycut->logo_url() : "/images/image-placeholder.png" }}" id="buycutImagePreview"
+                    class="rounded mx-auto m-0 buycut-thumbnail" alt="{{ __('Buycut Image') }}">
                   <p class="lead mb-0 mt-2" style="font-size: 1rem;">{{ __('recommended size is') }} <bdi>1200 x
                       628</bdi></p>
                   <hr>
-                  <input type="file" class="d-none" name="image" id="articleImage">
-                  <button type="button" onclick="document.getElementById('articleImage').click()"
+                  <input type="file" class="d-none" name="image" id="buycutImage">
+                  <button type="button" onclick="document.getElementById('buycutImage').click()"
                     class="btn btn-sm btn-warning d-inline-flex mx-3 align-items-center">
                     <svg style="width: 22px" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor"
                       viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -186,69 +96,16 @@
             <div class="col-12">
               <div class="card card-body border-0 shadow">
                 <div class="d-flex justify-content-between align-items-center">
-                  <h2 class="h4 m-0">{{ __('Article Content') }}</h2>
-                  <button class="w-content btn btn-gray-800 m-0 animate-up-1"
-                    type="submit">{{ __('Save all') }}</button>
+                  <h2 class="h4 m-0">{{ __('Buycut Content') }}</h2>
                 </div>
                 <hr class="my-3">
-                <input id="articleContent" type="hidden" name="content"
-                  value="{{ old('content') ?? (isset($article->id) ? $article->content : '') }}">
-                <trix-editor class="article-content" input="articleContent"></trix-editor>
+                <input id="buycutContent" type="hidden" name="details"
+                  value="{{ old('details') ?? (isset($buycut) ? $buycut->details : '') }}">
+                <trix-editor class="article-content" input="buycutContent"></trix-editor>
                 <button class="w-content btn btn-gray-800 mt-4 ms-auto w-fit px-5 animate-up-1"
                   type="submit">{{ __('Save all') }}</button>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="col-12 mt-4">
-          <div class="card card-body border-0 shadow">
-            <div class="d-flex justify-content-between align-items-center">
-              <h2 class="h4 m-0">{{ __('Event Information') }}</h2>
-            </div>
-            <hr class="my-3">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col">
-                    <div class="mb-3">
-                      <label for="event_title">{{ __('Event Title') }}</label>
-                      <input class="form-control @error('event_title') is-invalid @enderror" id="event_title"
-                        form="form" name="event_title" type="text"
-                        value="{{ old('event_title') ? old('event_title') : (isset($article?->event) ? $article?->event->title : '') }}"
-                        placeholder="{{ __('event_title shown in the map') }}">
-                      @error('event_title')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="mb-3">
-                      <label for="event_date">{{ __('Event Date') }}</label>
-                      <input type="date" class="form-control @error('event_date') is-invalid @enderror"
-                        id="event_date" name="event_date" form="form"
-                        value="{{ old('event_date') != null ? old('event_date') : (isset($article?->event) ? $article?->event->date->format('Y-m-d') : '') }}" />
-                      @error('event_date')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                      @enderror
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="shapes">{{ __('Map Shapes (JSON)') }}</label>
-                  <textarea class="form-control @error('shapes') is-invalid @enderror" id="shapes" style="min-height: 280px;"
-                    form="form" name="shapes" placeholder="{{ __('map shapes JSON data') }}">{{ old('shapes') != null ? old('shapes') : (isset($article?->event) ? $article?->event->shapes : '') }}</textarea>
-                  @error('shapes')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
-              </div>
-            </div>
-            <button class="w-content btn btn-gray-800 mt-4 ms-auto w-fit px-5 animate-up-1"
-              type="submit">{{ __('Save all') }}</button>
           </div>
         </div>
       </div>
@@ -257,33 +114,19 @@
 @endsection
 
 @section('scripts')
-  @if (Session::has('article-saved') && Session::get('article-saved'))
-    <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+  @if (Session::has('buycut-saved') && Session::get('buycut-saved'))
+    <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
   @endif
   <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
   <script>
-    let btns = document.querySelectorAll('.status-buttons');
-    btns.forEach(el => {
-      el.addEventListener("click", function() {
-        btns.forEach(btn => btn.classList.remove("active"));
-        this.classList.add("active");
-        document.getElementById(el.dataset.target).setAttribute("checked", true);
-      });
-    });
-    articleImage.addEventListener("change", function(e) {
+    buycutImage.addEventListener("change", function(e) {
       const [file] = this.files
       if (file) {
-        articleImagePreview.src = URL.createObjectURL(file)
+        buycutImagePreview.src = URL.createObjectURL(file)
       }
     })
 
-    $("#commentStatusLabel").on("click", function() {
-      let txt = $(this).data("toggle")
-      $(this).data("toggle", $(this).text())
-      $(this).text(txt)
-    })
-
-    var HOST = "{{ route('article_attachment') }}"
+    var HOST = "{{ route('buycut_attachment') }}"
 
     addEventListener("trix-attachment-add", function(event) {
       if (event.attachment.file) {
@@ -344,9 +187,9 @@
       return data
     }
 
-    @if (Session::has('article-saved') && Session::get('article-saved'))
+    @if (Session::has('buycut-saved') && Session::get('buycut-saved'))
       Swal.fire({
-        title: "Article Saved Successfully",
+        title: "Buycut Saved Successfully",
         customClass: {
           confirmButton: 'btn btn-success me-4',
         },
@@ -360,74 +203,5 @@
       })
     @endif
 
-    $(window).ready(function() {
-      $("#form").on("submit", function() {
-        let arr = []
-        $("#tags-input .tags .tag").each(function() {
-          arr.push($(this).text().trim().toLowerCase());
-        });
-        $("#tags").val(arr.join(","))
-      })
-      window.shakingTags = [];
-
-      function insertTag(text) {
-        $("#tags-input .tags").append(`
-          <span contenteditable="true" class="tag badge badge-sm py-1 bg-primary position-relative">${text}</span>
-        `);
-      }
-
-      function processTags(txt) {
-        let arr = $("#tags").val().split(",")
-        if (!arr.includes(txt)) {
-          insertTag(txt)
-          arr.push(txt)
-          document.querySelector("#tags").value = arr.join(",")
-          document.querySelector("#tags-input .input").value = ""
-        } else {
-          $("#tags-input .tags .tag").each(function() {
-            if ($(this).text() == document.querySelector("#tags-input .input").value) {
-              $(this).addClass("jump-shake")
-              window.shakingTags.push($(this))
-            }
-          })
-          setTimeout(() => {
-            window.shakingTags.forEach(el => {
-              $(el).removeClass("jump-shake")
-            })
-          }, 800);
-          document.querySelector("#tags-input .input").value = ""
-        }
-      }
-
-      $("#tags-input .tags").on("click", function(e) {
-        if (e.target !== this) {
-          return;
-        }
-        $("#tags-input .input").focus();
-      });
-
-      $("#tags-input .input").on("input", function(e) {
-        if (e.originalEvent.data == "," || ($("#tags-input .input").val().match(/\n/g) || []).length || ($(
-            "#tags-input .input").val().match(/,/g) || []).length) {
-          if (e.originalEvent.data == ",") {
-            $("#tags-input .input").val($("#tags-input .input").val().replace(/,/g, ""))
-            processTags($("#tags-input .input").val())
-          }
-          if (($("#tags-input .input").val().match(/\n/g) || []).length) {
-            $("#tags-input .input").val($("#tags-input .input").val().replace(/\n/g, ""))
-            processTags($("#tags-input .input").val())
-          }
-          if (($("#tags-input .input").val().match(/,/g) || []).length) {
-            $("#tags-input .input").val().split(",").forEach(tag => {
-              processTags(tag)
-            })
-          }
-        }
-      });
-
-      $("#tags").val().split(",").forEach(function(tag) {
-        insertTag(tag)
-      })
-    })
   </script>
 @endsection

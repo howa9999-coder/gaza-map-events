@@ -15,6 +15,8 @@ return new class extends Migration {
       $table->string("video")->nullable();
       $table->string("logo")->nullable();
       $table->string("images")->nullable();
+      $table->foreignId('category_id')->nullable();
+      $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
       $table->timestamps();
     });
   }

@@ -259,7 +259,7 @@
 
 @section('scripts')
   @if (Session::has('article-saved') && Session::get('article-saved'))
-    <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
   @endif
   <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
   <script>

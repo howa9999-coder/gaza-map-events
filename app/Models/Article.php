@@ -12,6 +12,7 @@ use App\Models\Comment;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Builder;
 
 // this way of declaring the class is for DB translation (one model multi languages)
 // class Article extends Model implements TranslatableContract {
@@ -112,5 +113,9 @@ class Article extends Model {
 
   public function date() {
     return $this->created_at;
+  }
+
+  public function scopeMostPopular(Builder $query): void {
+    $query->withCount("comments")->orderBy("comments_count");
   }
 }

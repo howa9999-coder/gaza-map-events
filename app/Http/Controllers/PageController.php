@@ -12,7 +12,8 @@ class PageController extends Controller {
 
   public function home() {
     $latest_articles = Article::orderBy("articles.created_at", "desc")->with("user")->limit(3)->get();
-    return view("home", compact("latest_articles"));
+    $popular_articles = Article::select(["title", "slug"])->mostPopular()->limit(6)->get();
+    return view("home", compact("latest_articles", "popular_articles"));
   }
 
   public function articles() {

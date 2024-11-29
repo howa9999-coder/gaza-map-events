@@ -43,7 +43,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
-  <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
 
   @yield('jslibraries')
 

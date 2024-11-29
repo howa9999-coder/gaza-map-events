@@ -50,6 +50,10 @@ class Category extends Model {
     $query->where("is_buycut_category", "0");
   }
 
+  public function isArticleCategory() {
+    return $this->is_buycut_category == 0;
+  }
+
   public function scopeIsBuycutCategory(Builder $query): void {
     $query->where("is_buycut_category", "1");
   }

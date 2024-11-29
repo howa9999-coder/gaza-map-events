@@ -17,8 +17,21 @@ class CategoryController extends Controller {
   }
 
   public function store(Request $request, Category $category) {
-    $request->validate([]);
-    return redirect()->route("categories_manage");
+    $request->validate([
+      "title" => "required|string|max:120",
+      "description" => "nullable|string",
+      "order" => "nullable|integer|min:0|max:5",
+    ]);
+
+    $category = Category::create([
+      "title" => request("title"),
+      "description" => request("description"),
+      "order" => request("order"),
+    ]);
+
+    $request->session()->flash('category-saved', boolval($category->id));
+
+    return redirect()->route("category_edit", $category->id);
   }
 
   public function edit(Request $request, Category $category) {
@@ -26,8 +39,24 @@ class CategoryController extends Controller {
   }
 
   public function update(Request $request, Category $category) {
-    $request->validate([]);
-    return redirect()->route("categories_manage");
+    $request->validate([
+      "title" => "required|string|max:120",
+      "description" => "nullable|string",
+      "order" => "nullable|integer|min:0|max:5",
+    ]);
+
+    $category->title = request("title");
+    if (request("description") != null) {
+      $category->description = request("description");
+    }
+
+    if (request("order") != null) {
+      $category->order = request("order");
+    }
+
+    $category->save();
+    $request->session()->flash('category-saved', true);
+    return redirect()->route("category_edit", $category->id);
   }
 
   public function destroy(Request $request, Category $category) {

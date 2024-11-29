@@ -6,7 +6,7 @@
 @endsection
 
 @section('styles')
-  @vite('resources/css/dashboard/style.css')
+  @vite('resources/css/dashboard.css')
 @endsection
 
 @section('content')
@@ -77,6 +77,7 @@
         <thead>
           <tr>
             <th class="border-gray-200">{{ __('Title') }}</th>
+            <th class="border-gray-200">{{ __('Type') }}</th>
             <th class="border-gray-200">{{ __('Action') }}</th>
           </tr>
         </thead>
@@ -86,6 +87,13 @@
             <tr class="fw-normal category-row" id="category-{{ $category->id }}" data-id="{{ $category->id }}">
               <td class="wrap">
                 <a href="{{ route('category_edit', $category->id) }}">{{ $category->title }}</a>
+              </td>
+              <td class="wrap">
+                <a href="{{ route('category_edit', $category->id) }}">
+                  <span class="badge badge {{ $category->isArticleCategory() ? "bg-dark" : "bg-warning"}}" style="font-size: 0.8rem;padding: 7px 10px">
+                    {{ $category->isArticleCategory() ? __("Articles") : __("Buycut") }}
+                  </span>
+                </a>
               </td>
               <td>
                 <div class="btn-group">
@@ -136,7 +144,7 @@
 @endsection
 
 @section('jslibs')
-  <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
 @endsection
 
 @section('scripts')

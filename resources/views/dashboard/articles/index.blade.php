@@ -6,7 +6,7 @@
 @endsection
 
 @section('styles')
-  @vite('resources/css/dashboard/style.css')
+  @vite('resources/css/dashboard.css')
 @endsection
 
 @section('content')
@@ -134,5 +134,5 @@
 
 
 @section('jslibs')
-  <script src="{{ url('libs/dashboard/sweetalert2.all.min.js') }}"></script>
+  <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
 @endsection
