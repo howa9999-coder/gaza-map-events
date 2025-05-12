@@ -47,17 +47,7 @@ var controlLayers = L.control
 
 let layer;
 
-const {
-  id,
-  wfsFile,
-  color,
-  className,
-  weight,
-  minWidth,
-  width,
-  maxWidth,
-  type,
-} = event.shapes;
+const { id, wfsFile, color, className, weight, width, type } = event.shapes;
 
 // For polygons, points & lines
 fetch(`/geo-data/${wfsFile}`)

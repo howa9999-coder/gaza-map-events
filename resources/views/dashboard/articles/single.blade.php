@@ -7,8 +7,11 @@
 
 @section('styles')
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
   @vite('resources/css/dashboard.css')
   @vite('resources/css/editor.css')
+  @vite('resources/css/leaflet.css')
 @endsection
 
 @section('content')
@@ -234,18 +237,21 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
                     </div>
+                    <div class="mb-3">
+                      <label>{{ __('Map Items') }}</label>
+                      <div id="mapItemsAlert" class="alert bg-warning">ther is no shapes for this event</div>
+                      <div id="mapItems"></div>
+                      @error('shapes')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                      @enderror
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-md-6">
-                <div class="mb-3">
-                  <label for="shapes">{{ __('Map Shapes (JSON)') }}</label>
-                  <textarea class="form-control @error('shapes') is-invalid @enderror" id="shapes" style="min-height: 280px;"
-                    form="form" name="shapes" placeholder="{{ __('map shapes JSON data') }}">{{ old('shapes') != null ? old('shapes') : (isset($article?->event) ? $article?->event->shapes : '') }}</textarea>
-                  @error('shapes')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                  @enderror
-                </div>
+                <label>{{ __('Map Shapes (JSON)') }}</label>
+                <div id="map" style="height: 600px;"></div>
+                <textarea class="d-none" id="shapes" form="form" name="shapes">{{ old('shapes') != null ? old('shapes') : (isset($article?->event) ? $article?->event->shapes : '') }}</textarea>
               </div>
             </div>
             <button class="w-content btn btn-gray-800 mt-4 ms-auto w-fit px-5 animate-up-1"
@@ -262,88 +268,10 @@
     <script src="{{ url('libs/sweetalert2.all.min.js') }}"></script>
   @endif
   <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
   <script>
-    let btns = document.querySelectorAll('.status-buttons');
-    btns.forEach(el => {
-      el.addEventListener("click", function() {
-        btns.forEach(btn => btn.classList.remove("active"));
-        this.classList.add("active");
-        document.getElementById(el.dataset.target).setAttribute("checked", true);
-      });
-    });
-    articleImage.addEventListener("change", function(e) {
-      const [file] = this.files
-      if (file) {
-        articleImagePreview.src = URL.createObjectURL(file)
-      }
-    })
-
-    $("#commentStatusLabel").on("click", function() {
-      let txt = $(this).data("toggle")
-      $(this).data("toggle", $(this).text())
-      $(this).text(txt)
-    })
-
     var HOST = "{{ route('article_attachment') }}"
-
-    addEventListener("trix-attachment-add", function(event) {
-      if (event.attachment.file) {
-        uploadFileAttachment(event.attachment)
-      }
-    })
-
-    function uploadFileAttachment(attachment) {
-      uploadFile(attachment.file, setProgress, setAttributes)
-
-      function setProgress(progress) {
-        attachment.setUploadProgress(progress)
-      }
-
-      function setAttributes(attributes) {
-        attachment.setAttributes(attributes)
-      }
-    }
-
-    function uploadFile(file, progressCallback, successCallback) {
-      var key = createStorageKey(file)
-      var formData = createFormData(key, file)
-      var xhr = new XMLHttpRequest()
-
-      xhr.open("POST", HOST, true)
-      xhr.setRequestHeader("X-CSRF-TOKEN", $('meta[name="csrf-token"]').attr('content'))
-
-      xhr.upload.addEventListener("progress", function(event) {
-        var progress = event.loaded / event.total * 100
-        progressCallback(progress)
-      })
-
-      xhr.addEventListener("load", function(event) {
-        if (xhr.status == 200) {
-          var attributes = {
-            url: xhr.response,
-            href: xhr.response + "?content-disposition=attachment"
-          }
-          successCallback(attributes)
-        }
-      })
-
-      xhr.send(formData)
-    }
-
-    function createStorageKey(file) {
-      var date = new Date()
-      var day = date.toISOString().slice(0, 10)
-      var name = date.getTime() + "-" + file.name
-      return ["tmp", day, name].join("/")
-    }
-
-    function createFormData(key, file) {
-      var data = new FormData()
-      data.append("key", key)
-      data.append("Content-Type", file.type)
-      data.append("file", file)
-      return data
-    }
 
     @if (Session::has('article-saved') && Session::get('article-saved'))
       Swal.fire({
@@ -360,75 +288,6 @@
         showLoaderOnConfirm: false,
       })
     @endif
-
-    $(window).ready(function() {
-      $("#form").on("submit", function() {
-        let arr = []
-        $("#tags-input .tags .tag").each(function() {
-          arr.push($(this).text().trim().toLowerCase());
-        });
-        $("#tags").val(arr.join(","))
-      })
-      window.shakingTags = [];
-
-      function insertTag(text) {
-        $("#tags-input .tags").append(`
-          <span contenteditable="true" class="tag badge badge-sm py-1 bg-primary position-relative">${text}</span>
-        `);
-      }
-
-      function processTags(txt) {
-        let arr = $("#tags").val().split(",")
-        if (!arr.includes(txt)) {
-          insertTag(txt)
-          arr.push(txt)
-          document.querySelector("#tags").value = arr.join(",")
-          document.querySelector("#tags-input .input").value = ""
-        } else {
-          $("#tags-input .tags .tag").each(function() {
-            if ($(this).text() == document.querySelector("#tags-input .input").value) {
-              $(this).addClass("jump-shake")
-              window.shakingTags.push($(this))
-            }
-          })
-          setTimeout(() => {
-            window.shakingTags.forEach(el => {
-              $(el).removeClass("jump-shake")
-            })
-          }, 800);
-          document.querySelector("#tags-input .input").value = ""
-        }
-      }
-
-      $("#tags-input .tags").on("click", function(e) {
-        if (e.target !== this) {
-          return;
-        }
-        $("#tags-input .input").focus();
-      });
-
-      $("#tags-input .input").on("input", function(e) {
-        if (e.originalEvent.data == "," || ($("#tags-input .input").val().match(/\n/g) || []).length || ($(
-            "#tags-input .input").val().match(/,/g) || []).length) {
-          if (e.originalEvent.data == ",") {
-            $("#tags-input .input").val($("#tags-input .input").val().replace(/,/g, ""))
-            processTags($("#tags-input .input").val())
-          }
-          if (($("#tags-input .input").val().match(/\n/g) || []).length) {
-            $("#tags-input .input").val($("#tags-input .input").val().replace(/\n/g, ""))
-            processTags($("#tags-input .input").val())
-          }
-          if (($("#tags-input .input").val().match(/,/g) || []).length) {
-            $("#tags-input .input").val().split(",").forEach(tag => {
-              processTags(tag)
-            })
-          }
-        }
-      });
-
-      $("#tags").val().split(",").forEach(function(tag) {
-        insertTag(tag)
-      })
-    })
   </script>
+  @vite(['resources/js/create-article.js'])
 @endsection

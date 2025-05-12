@@ -35,14 +35,12 @@ class ArticleController extends Controller {
       "tags" => "nullable|string",
       "image" => "required|image|mimes:png,jpg,jpeg|max:2048", // max = 2 mega byte
       "content" => "required",
-      "event_title" => "nullable|string|max:80",
+      "event_title" => "nullable|string|max:120",
       "event_date" => "nullable|date",
       "shapes" => "nullable|json",
     ]);
 
     Validator::make($request->all(), [
-      "event_title" => Rule::requiredIf(!empty(request("event_date")) || !empty("shapes")),
-      "event_date" => Rule::requiredIf(!empty(request("shapes")) || !empty("event_title")),
       "shapes" => Rule::requiredIf(!empty(request("event_date")) || !empty("event_title")),
     ])->validate();
 
@@ -58,6 +56,7 @@ class ArticleController extends Controller {
     $info["user_id"] = auth()->user()->id;
     $info["category_id"] = request("category");
     $info["title"] = request("title");
+    $info["slug"] = Str::slug(request("title"));
     $info["description"] = request("description");
     $info["content"] = request("content");
 
@@ -69,10 +68,10 @@ class ArticleController extends Controller {
 
     $article = Article::create($info);
 
-    if (!empty(request("event_title"))) {
+    if (!empty(request("shapes"))) {
       $article->event()->create([
-        "title" => request("event_title"),
-        "date" => request("event_date"),
+        "title" => request("event_title") ?? request("title"),
+        "date" => request("event_date") ?? date('mdYHis'),
         "shapes" => request("shapes")
       ]);
     }
@@ -147,8 +146,6 @@ class ArticleController extends Controller {
     ]);
 
     Validator::make($request->all(), [
-      "event_title" => Rule::requiredIf(!empty(request("event_date")) || !empty("shapes")),
-      "event_date" => Rule::requiredIf(!empty(request("shapes")) || !empty("event_title")),
       "shapes" => Rule::requiredIf(!empty(request("event_date")) || !empty("event_title")),
     ])->validate();
 
@@ -200,8 +197,8 @@ class ArticleController extends Controller {
     if (!empty(request("event_title")) || !empty(request("event_date")) || !empty(request("shapes"))) {
       if ($article->event) {
 
-        $article->event->title = request("event_title");
-        $article->event->date = request("event_date");
+        $article->event->title = request("event_title") ?? request("title");
+        $article->event->date = request("event_date") ?? date('mdYHis');
         $article->event->shapes = request("shapes");
         $article->event->save();
       } else {

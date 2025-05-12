@@ -1,0 +1,9 @@
+.map-label {
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #000;
+  text-shadow: 1px 1px 2px white;
+  box-shadow: none;
+  /* top: -30px; */
+}
