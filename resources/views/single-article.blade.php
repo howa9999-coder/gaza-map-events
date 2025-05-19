@@ -191,18 +191,18 @@
     </div>
 
     <!--on twitter-->
-    <div class="bg-gray text-white w-full md:w-1/4 p-4">
+    {{-- <div class="bg-gray text-white w-full md:w-1/4 p-4">
       <a class="twitter-timeline" href="https://twitter.com/YourUsername?ref_src=twsrc%5Etfw">Tweets by
         YourUsername</a>
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    </div>
+    </div> --}}
 
   </div>
 @endsection
 
 @section('scripts')
   <script>
-    const event = JSON.parse(`{!! json_encode([
+    const GeoEvent = JSON.parse(`{!! json_encode([
         'title' => $article->event->title,
         'id' => $article->event->id,
         'shapes' => $article->event->shapes_json(),

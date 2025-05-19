@@ -31,7 +31,7 @@ class CategoryController extends Controller {
 
     $request->session()->flash('category-saved', boolval($category->id));
 
-    return redirect()->route("category_edit", $category->id);
+    return redirect()->route("categories_manage");
   }
 
   public function edit(Request $request, Category $category) {
@@ -60,7 +60,6 @@ class CategoryController extends Controller {
   }
 
   public function destroy(Request $request, Category $category) {
-    $category->delete();
-    return redirect()->route("categories_manage");
+    return json_encode(["status" => $category->delete()]);
   }
 }

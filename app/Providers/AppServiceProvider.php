@@ -20,10 +20,5 @@ class AppServiceProvider extends ServiceProvider {
 
     // setting up paginagion type
     Paginator::defaultView('pagination.bootstrap-5');
-
-    // loading data for floating buycut component
-    view()->composer("layout.draggable-buycut", function ($view) {
-      $view->with("buycuts", \App\Models\Buycut::inRandomOrder()->select(["title", "logo", "id"])->limit(8)->get());
-    });
   }
 }

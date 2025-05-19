@@ -55,7 +55,7 @@
               <select class="form-select @error('category') is-invalid @enderror" id="cat" name="category">
                 <option value="">{{ __('-- select a category --') }}</option>
                 @foreach ($categories as $category)
-                  <option @if ($category->id == $article->category_id) selected @endif value="{{ $category->id }}">
+                  <option @if ($category->id == $article->category_id || $category->id == old('category')) selected @endif value="{{ $category->id }}">
                     {{ $category->title }}</option>
                 @endforeach
               </select>
@@ -83,11 +83,11 @@
                   </div>
                   <div class="form-check form-switch">
                     <input class="form-check-input" name="comment_status" type="checkbox"
-                      @if ($article->comment_status == 2) checked @endif id="commentStatus">
+                      @if ($article->comment_status == 2 || old('comment_status') == 2) checked @endif id="commentStatus">
                     <label class="form-check-label" id="commentStatusLabel"
-                      data-toggle="@if ($article->comment_status == 2) {{ __('Closed') }} @else {{ __('Open') }} @endif"
+                      data-toggle="@if ($article->comment_status == 2 || old('comment_status') == 2) {{ __('Closed') }} @else {{ __('Open') }} @endif"
                       for="commentStatus">
-                      @if ($article->comment_status == 2)
+                      @if ($article->comment_status == 2 || old('comment_status') == 2)
                         {{ __('Open') }}
                       @else
                         {{ __('Closed') }}
@@ -105,9 +105,9 @@
                     <legend class="h6">{{ __('Status') }}</legend>
                     <div class="d-flex gap-4">
                       <input class="d-none" type="radio" name="status" id="private"
-                        @if ($article->status == 0) checked @endif value="0">
+                        @if ($article->status == 0 || (!$article && old('status') == 0)) checked @endif value="0">
                       <button type="button" data-target="private"
-                        class="btn btn-primary @if ($article->status == 0) active @endif status-buttons">
+                        class="btn btn-primary @if ($article->status == 0 || (!$article && old('status') == 0)) active @endif status-buttons">
                         <div calss="text-white" style="width: 22px">
                           <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5" stroke="currentColor"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -118,9 +118,9 @@
                         </div>
                       </button>
                       <input class="d-none" type="radio" name="status" id="unlisted"
-                        @if ($article->status == 1) checked @endif value="1">
+                        @if ($article->status == 1 || (!$article && old('status') == 1)) checked @endif value="1">
                       <button type="button" data-target="unlisted"
-                        class="btn btn-warning @if ($article->status == 1) active @endif status-buttons">
+                        class="btn btn-warning @if ($article->status == 1 || (!$article && old('status') == 1)) active @endif status-buttons">
                         <div calss="text-white" style="width: 22px">
                           <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5"
                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
@@ -132,9 +132,9 @@
                         </div>
                       </button>
                       <input class="d-none" type="radio" name="status" id="public"
-                        @if ($article->status == 2) checked @endif value="2">
+                        @if ($article->status == 2 || (!$article && old('status') == 2)) checked @endif value="2">
                       <button type="button" data-target="public"
-                        class="btn btn-info @if ($article->status == 2) active @endif status-buttons">
+                        class="btn btn-info @if ($article->status == 2 || (!$article && old('status') == 2)) active @endif status-buttons">
                         <div calss="text-white" style="width: 22px">
                           <svg class="w-22px" data-slot="icon" fill="none" stroke-width="1.5"
                             stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"

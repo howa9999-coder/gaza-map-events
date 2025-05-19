@@ -53,11 +53,11 @@
           </div>
           <!--on twitter-->
           <div class="text-sm py-6 sticky">
-            <div class="w-full text-center">
+            {{-- <div class="w-full text-center">
               <a class="twitter-timeline" href="https://twitter.com/YourUsername?ref_src=twsrc%5Etfw">Tweets by
                 YourUsername</a>
               <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            </div>
+            </div> --}}
           </div>
         </div>
         <!-- Left -->

@@ -71,7 +71,3 @@
     </div>
   </div>
 @endsection
-
-@section('scripts')
-  @vite(['resources/js/main.js'])
-@endsection

@@ -5,7 +5,8 @@ $(function () {
   });
 });
 
-const map = L.map("map").setView([31.5, 34.47], 12); // Centering map on Gaza Strip
+// const map = L.map("map").setView([31.5, 34.47], 12);
+const map = L.map("map").setView([31.43, 34.4], 11); // Centering map on Gaza Strip
 
 // Add scalebar to map
 L.control.scale({ metric: true, imperial: false, maxWidth: 100 }).addTo(map);
@@ -47,118 +48,102 @@ var controlLayers = L.control
 
 let layer;
 
-const { id, wfsFile, color, className, weight, width, type } = event.shapes;
+console.log(GeoEvent);
+if (typeof GeoEvent != "undefined") {
+  const { id, shapes, title } = GeoEvent.shapes;
 
-// For polygons, points & lines
-fetch(`/geo-data/${wfsFile}`)
-  .then((geo) => geo.json())
-  .then((geojsonData) => {
-    switch (type) {
-      case "polygon":
-        layer = L.geoJSON(geojsonData, {
-          style: function () {
-            return {
-              color: color,
-              weight: weight,
-            };
-          },
-          onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.name);
-          },
-        });
-        break;
-      case "line":
-        layer = L.geoJSON(geojsonData, {
-          style: function () {
-            return {
-              color: color,
-              weight: weight,
-            };
-          },
-          onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.name, { width: width });
-          },
-        });
-        break;
-      case "point":
-        layer = L.geoJSON(geojsonData, {
-          pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, {
-              radius: 8, // Example radius for points
-              fillColor: color,
-              color: "#000",
-              weight: weight,
-              fillOpacity: 0.8,
-            });
-          },
-          onEachFeature: function (feature, layer) {
-            layer.bindPopup(feature.properties.name);
-          },
-        });
-        break;
-      default:
-        console.warn("Unknown layer type:", type);
-        return; // Skip if the type is not recognized
-    }
-    map.addLayer(layer);
+  function zoomToAllShapes(mapInstance, featuresGroup) {
+    console.log(featuresGroup);
 
-    let layerBounds;
+    mapInstance.fitBounds(featuresGroup.getBounds(), {
+      padding: [20, 20],
+      maxZoom: 15,
+    });
+  }
 
-    if (layer instanceof L.GeoJSON || layer instanceof L.LayerGroup) {
-      // Default bounds for GeoJSON layers (polygons, lines, etc.)
-      // or If the layer is a group of layers (e.g., multiple markers)
-      layerBounds = layer.getBounds();
-    } else if (layer instanceof L.Marker) {
-      layerBounds = layer.getLatLng(); // Use marker's LatLng for fitting map bounds
-    } else {
-      console.warn("the layer bounds is not ok");
+  function addGeoItem(
+    geoLayer,
+    optionsalProperties = { note: "", color: "orange" }
+  ) {
+    const geoJson = geoLayer.toGeoJSON();
+    geoJson.properties = optionsalProperties;
+
+    if (geoJson?.geometry?.type == "Polygon") {
+      geoLayer.setStyle({
+        color: geoJson.properties.color,
+      });
     }
 
-    if (layerBounds && layerBounds.isValid()) {
-      map.fitBounds(layerBounds);
-    } else {
-      console.warn("Invalid bounds for layer:", layer);
+    if (geoJson?.properties?.note?.trim()) {
+      geoLayer
+        .bindTooltip(geoJson?.properties?.note?.trim(), {
+          permanent: true,
+          direction: "center",
+          className: "map-label",
+        })
+        .openTooltip();
+    }
+  }
+
+  $(window).ready(function () {
+    /* =====================  GEO Map  ===================== */
+
+    if (typeof GeoEvent != "undefined" && GeoEvent?.shapes?.length) {
+      const GeoShape = new L.FeatureGroup();
+      map.addLayer(GeoShape);
+
+      GeoEvent?.shapes.forEach((shape) => {
+        const layer = L.geoJSON(shape, {
+          style: function (feature) {
+            return {
+              // color: feature.properties?.color || "#3388ff",
+              color: feature.properties?.color || "#000000",
+            };
+          },
+        });
+        layer.addTo(GeoShape);
+        addGeoItem(layer, shape.properties);
+      });
+      zoomToAllShapes(map, GeoShape);
     }
   });
+  /* ===============  add marker layer  =============== */
+  /*
 
-/* ===============  add marker layer  =============== */
+  // Create a Layer Group to hold all the markers
+  const markerLayerGroup = L.layerGroup();
 
-// Create a Layer Group to hold all the markers
-const markerLayerGroup = L.layerGroup();
+  // Create an array to hold the lat/lng bounds for all markers
+  const markerBounds = [];
 
-// Create an array to hold the lat/lng bounds for all markers
-const markerBounds = [];
+  // Get the overlay div where we will display the popup content
+  const markerCard = document.getElementById("marker-card");
 
-// Get the overlay div where we will display the popup content
-const markerCard = document.getElementById("marker-card");
+  const { lat, long, popUp } = GeoEvent.shapes;
 
-const { lat, long, popUp } = event.shapes;
+  if (type === "marker") {
+    // Create the marker
+    var marker = L.marker([lat, long]).bindPopup(popUp).openPopup();
 
-if (type === "marker") {
-  // Create the marker
-  var marker = L.marker([lat, long]).bindPopup(popUp).openPopup();
+    // Add the marker to the layer group
+    markerLayerGroup.addLayer(marker);
 
-  // Add the marker to the layer group
-  markerLayerGroup.addLayer(marker);
+    // Add the marker's lat/lng to the bounds array
+    markerBounds.push([lat, long]);
+  }
 
-  // Add the marker's lat/lng to the bounds array
-  markerBounds.push([lat, long]);
+  // Use fitBounds to adjust the map view to the bounds of all markers
+  if (markerBounds.length > 0) {
+    const bounds = L.latLngBounds(markerBounds);
+    map.fitBounds(bounds);
+  }
+
+  // After all markers have been created, add the layer group to the map
+  markerLayerGroup.addTo(map); */
 }
-
-// After all markers have been created, add the layer group to the map
-markerLayerGroup.addTo(map);
-
-// Use fitBounds to adjust the map view to the bounds of all markers
-if (markerBounds.length > 0) {
-  const bounds = L.latLngBounds(markerBounds);
-  map.fitBounds(bounds);
-}
-
-// After all markers have been created, add the layer group to the map
-markerLayerGroup.addTo(map);
 
 const fullScreenButton = document.querySelector(".screen-button");
-const mapContainer = document.getElementById("mapLayer");
+const mapContainer = document.getElementById("map");
 
 // Function to toggle fullscreen mode
 function toggleFullScreen() {

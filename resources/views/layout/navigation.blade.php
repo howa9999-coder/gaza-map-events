@@ -26,7 +26,6 @@
     class="flex flex-col justify-center items-center top-0 bg-gray-100 left-0 w-full h-screen text-gray-800 shadow-lg py-4 px-6 hidden">
     <a href="/" class="text-2xl py-2 hover:text-blue-500">Home</a>
     <a href="{{ route('articles_page') }}" class="text-2xl py-2 hover:text-blue-500">Blog</a>
-    <a href="{{ route('buycut_page') }}" class="text-2xl py-2 hover:text-blue-500">Boycott</a>
     <a href="{{ route('contact') }}" class="text-2xl py-2 hover:text-blue-500">Contact</a>
   </nav>
 </header>

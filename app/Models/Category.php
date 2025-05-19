@@ -19,15 +19,10 @@ class Category extends Model {
   protected $fillable = [
     'title',
     'description',
-    'is_buycut_category'
   ];
 
   public function articles() {
     return $this->hasMany(Article::class);
-  }
-
-  public function buycuts() {
-    return $this->hasMany(Buycut::class);
   }
 
   public function show_date() {
@@ -44,18 +39,6 @@ class Category extends Model {
 
   public function scopeMostUsed(Builder $query): void {
     $query->withCount("articles")->orderBy("articles_count");
-  }
-
-  public function scopeIsArticleCategory(Builder $query): void {
-    $query->where("is_buycut_category", "0");
-  }
-
-  public function isArticleCategory() {
-    return $this->is_buycut_category == 0;
-  }
-
-  public function scopeIsBuycutCategory(Builder $query): void {
-    $query->where("is_buycut_category", "1");
   }
 
   public function get_link() {

@@ -33,7 +33,7 @@ class ArticleController extends Controller {
       "status" => "required|integer|min:0|max:2",
       "category" => "nullable|exists:categories,id",
       "tags" => "nullable|string",
-      "image" => "required|image|mimes:png,jpg,jpeg|max:2048", // max = 2 mega byte
+      "image" => "nullable|image|mimes:png,jpg,jpeg|max:2048", // max = 2 mega byte
       "content" => "required",
       "event_title" => "nullable|string|max:120",
       "event_date" => "nullable|date",

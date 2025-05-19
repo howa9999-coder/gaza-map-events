@@ -29,10 +29,6 @@
 
   <body class="bg-gray-100 h-[1000px] font-[Poppins]">
 
-    @include('layout.navigation')
-
-    @include('layout.draggable-buycut')
-
     <!-- Main Content -->
     <main class="flex flex-col p-0 m-0">
       @yield('content')
@@ -50,8 +46,6 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 
-    @vite(['resources/js/main.js'])
-    @vite(['resources/js/navigation.js'])
     @yield('scripts')
 
   </body>
