@@ -81,6 +81,18 @@ function createFormData(key, file) {
   return data;
 }
 
+function zoomToAllShapes(mapInstance) {
+  if (!geoLayers.length) return;
+
+  const allLayers = geoLayers.map((g) => L.geoJSON(g));
+  const group = L.featureGroup(allLayers);
+
+  mapInstance.fitBounds(group.getBounds(), {
+    padding: [20, 20],
+    maxZoom: 17,
+  });
+}
+
 let geoLayers = [];
 
 function addGeoItem(
@@ -89,11 +101,14 @@ function addGeoItem(
   optionsalProperties = { note: "", color: "orange" }
 ) {
   const geoJson = geoLayer.toGeoJSON();
+  geoJson.id = geoLayers.length;
   geoJson.properties = optionsalProperties;
 
-  geoLayer.setStyle({
-    color: geoJson.properties.color,
-  });
+  if (geoJson?.geometry?.type == "Polygon") {
+    geoLayer.setStyle({
+      color: geoJson.properties.color,
+    });
+  }
 
   geoLayer.unbindTooltip();
   if (geoJson?.properties?.note?.trim()) {
@@ -120,12 +135,19 @@ function addGeoItem(
   let content = `
     <div calss="input-group">
       <div class="card-body">
-        <div class="mb-2 colros-box text-center">
+        ${
+          (geoJson?.geometry?.type == "Polygon" ||
+            (geoJson.type == "FeatureCollection" &&
+              geoJson.features[0].geometry.type == "Polygon")) &&
+          `<div class="mb-2 colros-box text-center">
           <button style="width:25px;height:25px;box-shadow:0px 0 5px 0px #aaa;background:#3388ff;" class="p-0 btn rounded-circle color blue" type="button"></button>
           <button style="width:25px;height:25px;box-shadow:0px 0 5px 0px #aaa;background:#DC143C;" class="p-0 btn rounded-circle color red" type="button"></button>
           <button style="width:25px;height:25px;box-shadow:0px 0 5px 0px #aaa;background:#ffa343;" class="p-0 btn rounded-circle color orange" type="button"></button>
-        </div>
-        <input type="text" class="form-control" placeholder="shape ${geoLayers.length} notes">
+        </div>`
+        }
+        <input type="text" class="form-control" placeholder="shape ${
+          geoLayers.length
+        } notes">
         <button class="btn btn-danger animate-up-1 mt-2 delete-btn" type="button"><i class="fa fa-trash"></i></button>
       </div>
     </div>`;
@@ -137,15 +159,22 @@ function addGeoItem(
 
   mapItems.appendChild(inputGroup);
 
-  const colorButtons = inputGroup.querySelectorAll(".color");
-  colorButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      geoJson.properties.color = btn.style.background;
-      geoLayer.setStyle({
-        color: btn.style.background,
+  if (
+    geoJson?.geometry?.type == "Polygon" ||
+    (geoJson.type == "FeatureCollection" &&
+      geoJson.features[0].geometry.type == "Polygon")
+  ) {
+    const colorButtons = inputGroup.querySelectorAll(".color");
+    colorButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        geoJson.properties.color = btn.style.background;
+        shapes.value = JSON.stringify(geoLayers);
+        geoLayer.setStyle({
+          color: btn.style.background,
+        });
       });
     });
-  });
+  }
 
   const input = inputGroup.querySelector("input");
   input.addEventListener("input", () => {
@@ -169,7 +198,9 @@ function addGeoItem(
   const deleteBtn = inputGroup.querySelector(".delete-btn");
   deleteBtn.addEventListener("click", () => {
     inputGroup.remove();
-    geoLayers = geoLayers.find((geoItem) => geoItem.id != geoJson.id) ?? [];
+    console.log(geoLayers);
+    geoLayers = geoLayers.filter((geoItem) => geoItem.id != geoJson.id) ?? [];
+    console.log(geoLayers);
     shapes.value = JSON.stringify(geoLayers);
     layerGroup.removeLayer(geoLayer);
     if (geoLayers.length) {
@@ -277,17 +308,18 @@ $(window).ready(function () {
   if (shapes.value.length) {
     let val = JSON.parse(shapes.value);
     val.forEach((shape) => {
-      console.log(shape.properties);
       const layer = L.geoJSON(shape, {
         style: function (feature) {
           return {
-            color: feature.properties?.color || "#3388ff",
+            // color: feature.properties?.color || "#3388ff",
+            color: feature.properties?.color || "#000000",
           };
         },
       });
       layer.addTo(drawnItems);
       addGeoItem(layer, drawnItems, shape.properties);
     });
+    zoomToAllShapes(map);
   }
 
   map.on(L.Draw.Event.CREATED, async function (e) {
